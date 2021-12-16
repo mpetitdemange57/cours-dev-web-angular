@@ -8,19 +8,27 @@ import {MatToolbarModule} from "@angular/material/toolbar";
 import { AccueilComponent } from './accueil/accueil.component';
 import { PersonnelComponent } from './personnel/personnel.component';
 import { GraphComponent } from './graph/graph.component';
+import { CarteComponent } from './partage/carte/carte.component';
+import {MatCardModule} from "@angular/material/card";
+import {MatIconModule} from "@angular/material/icon";
+import {MatButtonModule} from "@angular/material/button";
 
 @NgModule({
   declarations: [
     AppComponent,
     AccueilComponent,
     PersonnelComponent,
-    GraphComponent
+    GraphComponent,
+    CarteComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     BrowserAnimationsModule,
-    MatToolbarModule
+    MatToolbarModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule
   ],
   providers: [],
   bootstrap: [AppComponent]
