@@ -4,12 +4,10 @@ import * as LIST_EMPLOYEES from "./data/SeattleGraceEmployees.js";
 
 var PEOPLES = LIST_EMPLOYEES.seattleGraceEmployees.map(person => {
   // work with timestamps, it's cleaner
-  person.entryDate = parseDate(person.entryDate);
-  person.birthDate = parseDate(person.birthDate);
   return person;
 });
 
-exports.listAll = function(req, res) {
+const listAll = function(req, res) {
   console.log('List all PEOPLES');
   if (!PEOPLES || PEOPLES.length === 0) {
     return res.status(204).json();
@@ -17,7 +15,7 @@ exports.listAll = function(req, res) {
   return res.status(200).json(PEOPLES);
 };
 
-exports.filterByName = function(req, res) {
+const filterByName = function(req, res) {
   var name = getParam(req, 'name');
   console.log('List by name : name=' + name);
 
@@ -26,7 +24,7 @@ exports.filterByName = function(req, res) {
   return res.status(200).json(PEOPLES);
 };
 
-exports.filterBySkill = function(req, res) {
+const filterBySkill = function(req, res) {
   var skill = getParam(req, 'skill');
   console.log('List by skill : skill=' + skill);
 
@@ -37,7 +35,7 @@ exports.filterBySkill = function(req, res) {
   return res.status(200).json(filteredPeoples);
 };
 
-exports.get = function(req, res) {
+const get = function(req, res) {
   var id = getId(req);
   console.log('Get person : id=' + id);
 
@@ -50,7 +48,7 @@ exports.get = function(req, res) {
   return res.status(200).json(person);
 };
 
-exports.getRandom = function(req, res) {
+const getRandom = function(req, res) {
   var person = PEOPLES[Math.floor(Math.random() * PEOPLES.length)];
   if (!person) {
     return res.status(204).json();
@@ -58,7 +56,7 @@ exports.getRandom = function(req, res) {
   return res.status(200).json(person);
 };
 
-exports.create = function(req, res) {
+const create = function(req, res) {
   var person = req.body;
   var lastname = person.lastname;
   var firstname = person.firstname;
@@ -78,7 +76,7 @@ exports.create = function(req, res) {
   return res.status(200).json(person);
 };
 
-exports.update = function(req, res) {
+const update = function(req, res) {
   var id = getId(req);
   console.log('Update person : id=' + id);
 
@@ -97,7 +95,7 @@ exports.update = function(req, res) {
   return res.status(200).json(PEOPLES[index]);
 };
 
-exports.delete = function(req, res) {
+const del = function(req, res) {
   var id = getId(req);
   console.log('Delete person : id=' + id);
 
@@ -132,6 +130,12 @@ function createId() {
 }
 
 function parseDate(stringDate) {
-  const dates = stringDate.split('/');
-  return new Date(dates[2] + '/' + dates[1] + '/' + dates[0]).getTime();
+  if(stringDate !== undefined){
+    const dates = stringDate.split('/');
+    return new Date(dates[2] + '/' + dates[1] + '/' + dates[0]).getTime();
+  }else{
+    throw new Error("stringDate est indéfini ");
+  }
 }
+
+export {listAll,filterByName,filterBySkill,update,create,getRandom, del }

@@ -4,5 +4,9 @@
   "scripts": {
     "start": "node server.js"
   },
-  "type": "module"
+  "type": "module",
+  "dependencies": {
+    "body-parser": "^1.19.1",
+    "cors": "^2.8.5"
+  }
 }

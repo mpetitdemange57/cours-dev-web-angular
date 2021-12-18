@@ -1,11 +1,11 @@
-import * as express from "express";
+import express from "express";
 import * as api from "./api.js";
-import * as cors from "cors";
-import * as bodyParser from "body-parser";
+import cors from "cors";
+import bodyParser from "body-parser";
 
 
+const app = express();
 
-const app = express()
 app.set('port', process.env.PORT || 3000);
 app.use(bodyParser.json());
 app.use(cors());
@@ -26,7 +26,7 @@ app.get('/api/employee/name/:name', api.filterByName);
 app.get('/api/employee/skill/:skill', api.filterBySkill);
 app.post('/api/employee', api.create);
 app.put('/api/employee/:id', api.update);
-app.delete('/api/employee/:id', api.delete);
+app.delete('/api/employee/:id', api.del);
 
 app.listen(app.get('port'), function() {
   console.log('✔Express server listening on http://localhost:%d/', app.get('port'));
