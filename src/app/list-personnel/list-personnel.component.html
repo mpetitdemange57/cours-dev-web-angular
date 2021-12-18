@@ -1,5 +1,5 @@
 <section>
-  <carte [person]="person" (personDelete)="delete($event)" *ngFor="let person of personnel"></carte>
+  <carte [employee]="employee" (personDelete)="delete($event)" *ngFor="let employee of personnel"></carte>
 </section>
 
 <button (click)="showDialog()" *ngIf="dialogStatus == 'inactive'" mat-fab color="accent">

@@ -2,8 +2,10 @@
   "name": "cours-dev-web-angular",
   "version": "0.0.0",
   "scripts": {
+    "start": "concurrently \"npm run server\" \"npm run client\"",
+    "server": "node _server/server.js",
     "ng": "ng",
-    "start": "ng serve",
+    "client": "ng serve",
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test"
@@ -21,8 +23,11 @@
     "@angular/platform-browser-dynamic": "~13.1.0",
     "@angular/router": "~13.1.0",
     "bootstrap-icons": "^1.7.2",
+    "concurrently": "^6.5.0",
+    "express": "^4.17.2",
     "rxjs": "~7.4.0",
     "tslib": "^2.3.0",
+    "underscore": "^1.13.2",
     "zone.js": "~0.11.4"
   },
   "devDependencies": {

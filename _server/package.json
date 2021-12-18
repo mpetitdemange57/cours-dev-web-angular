@@ -1,0 +1,8 @@
+{
+  "name": "cours-dev-web-angular",
+  "version": "0.0.0",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "type": "module"
+}

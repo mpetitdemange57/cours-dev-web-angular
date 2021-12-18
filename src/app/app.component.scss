@@ -16,3 +16,20 @@ mat-drawer-container { flex: 1 1 auto; }
 .sidenav_container {
   height: calc(100vh);
 }
+
+a{
+  text-decoration: none;
+}
+
+a.evitement {
+  display: inline-block;
+  color: #555;
+  background: #fff;
+  padding: .5em;
+  position: absolute;
+  left: -99999rem;
+  z-index: 100;
+}
+a.evitement:focus {
+  left: 0;
+}
