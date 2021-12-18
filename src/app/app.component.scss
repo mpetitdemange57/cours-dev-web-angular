@@ -9,3 +9,10 @@
 mat-toolbar span{
   margin: 1em;
 }
+
+app-sidenav { display: flex; }
+mat-drawer-container { flex: 1 1 auto; }
+
+.sidenav_container {
+  height: calc(100vh);
+}
