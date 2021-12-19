@@ -1,39 +1,49 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {mergeMap} from "rxjs";
 import {AjoutPopupComponent} from "./ajout-popup/ajout-popup.component";
+import {FormControl} from "@angular/forms";
+import {ListPersonnelService} from "../partage/service/list-personnel.service";
 
-const SERVER_URL = 'http://localhost:9000';
 
 @Component({
-  selector: 'app-list-personnel',
+  selector: 'app-service',
   templateUrl: './list-personnel.component.html',
   styleUrls: ['./list-personnel.component.scss']
 })
 export class ListPersonnelComponent implements OnInit {
   private addDialog: MatDialogRef<AjoutPopupComponent> | any;
-  personnel: any;
+  personnel: any[] = [];
   dialogStatus = 'inactive';
+  personnelCtrl = new FormControl();
+  view = 'card';
 
-  constructor(private _http: HttpClient, public dialog: MatDialog) {}
+
+  constructor(private readonly listPersonnelService: ListPersonnelService, public dialog: MatDialog) {
+
+  }
 
   /**
    * OnInit implementation
    */
   ngOnInit() {
-    // this._http.get(`${SERVER_URL}/api/personnel/`).subscribe(people => (this.personnel = people));
+    this.listPersonnelService.fetch().subscribe(personnel => {
+      this.personnel = personnel;
+    });
   }
 
   delete(person: any) {
-    this._http.delete(`${SERVER_URL}/api/personnel/${person.id}`).subscribe(people => (this.personnel = people));
+    this.listPersonnelService.delete(person.id).subscribe(personnel => {
+      this.personnel = personnel;
+    });
   }
 
   add(person: any) {
-    this._http
-      .post(`${SERVER_URL}/api/peoples/`, person)
-      .pipe(mergeMap(_ => this._http.get(`${SERVER_URL}/api/peoples/`)))
-      .subscribe((personnel) => {
+    debugger;
+    this.listPersonnelService
+      .create(person)
+      .pipe(mergeMap(() => this.listPersonnelService.fetch()))
+      .subscribe(personnel => {
         this.personnel = personnel;
         this.hideDialog();
       });
@@ -60,6 +70,10 @@ export class ListPersonnelComponent implements OnInit {
     if(this.addDialog != undefined){
       this.addDialog.close();
     }
+  }
+
+  switchView() {
+    this.view = this.view === 'card' ? 'list' : 'card';
   }
 
 }

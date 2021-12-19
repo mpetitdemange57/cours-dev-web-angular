@@ -1,7 +1,35 @@
+<barre-de-recherche [personnel]="personnel"></barre-de-recherche>
+
 <section>
-  <carte [employee]="employee" (personDelete)="delete($event)" *ngFor="let employee of personnel"></carte>
+  <span> {{personnel.length}} Employé(s) trouvé(s)</span>
 </section>
 
-<button (click)="showDialog()" *ngIf="dialogStatus == 'inactive'" mat-fab color="accent">
-  <i class="material-icons">add</i>
-</button>
+<section [ngSwitch]="view">
+  <section *ngSwitchCase="'card'">
+    <carte [employe]="employe" (personDelete)="delete($event)" *ngFor="let employe of personnel" ></carte>
+  </section>
+
+  <section *ngSwitchCase="'list'">
+    <mat-list>
+      <mat-list-item *ngFor="let employe of personnel " class="mat-whiteframe-2dp mat-card">
+        <img mat-list-avatar src="{{ employe.photo }}" alt="Avatar de l'employé"/>
+        <h3 mat-line>{{ employe.prenom }} {{ employe.nom }} </h3>
+        <p mat-line>
+          <span> {{ employe.email }} </span> — <span>{{ employe.telephone }} </span>
+        </p>
+      </mat-list-item>
+    </mat-list>
+  </section>
+</section>
+
+
+<section class="buttons-fab" *ngIf="dialogStatus == 'inactive'">
+  <button (click)="showDialog()" mat-fab color="accent" class="button-add">
+    <em class="material-icons">add</em>
+  </button>
+
+  <button (click)="switchView()" mat-fab color="warn">
+    <em class="material-icons" *ngIf="view === 'card'">list</em>
+    <em class="material-icons" *ngIf="view === 'list'">view_stream</em>
+  </button>
+</section>

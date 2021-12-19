@@ -1,7 +1,7 @@
-import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {Component, OnInit} from '@angular/core';
+import {ListPersonnelService} from "../partage/service/list-personnel.service";
 
-const SERVER_URL = 'http://localhost:9000';
+const SERVER_URL = 'http://localhost:3000';
 
 
 @Component({
@@ -10,14 +10,17 @@ const SERVER_URL = 'http://localhost:9000';
   styleUrls: ['./accueil.component.scss']
 })
 export class AccueilComponent implements OnInit {
-  employee: any = {};
-  constructor(private _http: HttpClient) {}
+  employe: any = {};
+
+  constructor(private readonly listPersonnelService: ListPersonnelService) {}
 
   ngOnInit(): void {
-    this._http.get(`${SERVER_URL}/api/peoples/`).subscribe(people => (this.employee = people));
+    this.random();
   }
 
   random() {
-    this._http.get(`${SERVER_URL}/api/peoples/random`).subscribe(employee => (this.employee = employee));
+    this.listPersonnelService.fetchRandom().subscribe(employe => {
+      this.employe = employe;
+    });
   }
 }

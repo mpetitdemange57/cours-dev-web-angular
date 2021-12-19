@@ -1,45 +1,51 @@
 import * as _ from "underscore"
+import {base64_encode} from './encodingUtils.js';
 
 import * as LIST_EMPLOYEES from "./data/SeattleGraceEmployees.js";
 
-var PEOPLES = LIST_EMPLOYEES.seattleGraceEmployees.map(person => {
+var EMPLOYE = LIST_EMPLOYEES.seattleGraceEmployees.map(employe => {
   // work with timestamps, it's cleaner
-  return person;
+  let nom =  employe.nom.toLowerCase().trim().replace(/[^\w\s]/gi, '');
+  let prenom =  employe.prenom.toLowerCase().trim().replace(/[^\w\s]/gi, '');
+
+  employe.photo = base64_encode(prenom + "-" + nom + ".jpg");
+
+  return employe;
 });
 
 const listAll = function(req, res) {
-  console.log('List all PEOPLES');
-  if (!PEOPLES || PEOPLES.length === 0) {
+  console.log('List all EMPLOYE');
+  if (!EMPLOYE || EMPLOYE.length === 0) {
     return res.status(204).json();
   }
-  return res.status(200).json(PEOPLES);
+  return res.status(200).json(EMPLOYE);
 };
 
 const filterByName = function(req, res) {
   var name = getParam(req, 'name');
   console.log('List by name : name=' + name);
 
-  var PEOPLES = _.union(_.where(PEOPLES, { lastname: name }), _.where(PEOPLES, { firstname: name }));
+  EMPLOYE = _.union(_.where(EMPLOYE, { lastname: name }), _.where(EMPLOYE, { firstname: name }));
 
-  return res.status(200).json(PEOPLES);
+  return res.status(200).json(EMPLOYE);
 };
 
 const filterBySkill = function(req, res) {
   var skill = getParam(req, 'skill');
   console.log('List by skill : skill=' + skill);
 
-  var filteredPeoples = _.filter(PEOPLES, function(person) {
+  var filteredEMPLOYE = _.filter(EMPLOYE, function(person) {
     return _.contains(person.skills, skill);
   });
 
-  return res.status(200).json(filteredPeoples);
+  return res.status(200).json(filteredEMPLOYE);
 };
 
 const get = function(req, res) {
   var id = getId(req);
   console.log('Get person : id=' + id);
-
-  var person = _.findWhere(PEOPLES, { id: id });
+  console.log(EMPLOYE);
+  var person = _.findWhere(EMPLOYE, { id: id });
 
   if (!person) {
     return res.status(404).json({ error: 'La personne avec l\'id "' + id + '" n\'existe pas.' });
@@ -49,7 +55,7 @@ const get = function(req, res) {
 };
 
 const getRandom = function(req, res) {
-  var person = PEOPLES[Math.floor(Math.random() * PEOPLES.length)];
+  var person = EMPLOYE[Math.floor(Math.random() * EMPLOYE.length)];
   if (!person) {
     return res.status(204).json();
   }
@@ -62,7 +68,7 @@ const create = function(req, res) {
   var firstname = person.firstname;
   console.log('Create person : lastname=' + lastname + ', firstname=' + firstname);
 
-  var found = _.findWhere(PEOPLES, { lastname: lastname, firstname: firstname });
+  var found = _.findWhere(EMPLOYE, { lastname: lastname, firstname: firstname });
   if (found) {
     return res.status(409).json({ error: 'La personne "' + lastname + ' ' + firstname + '" existe déjà.' });
   }
@@ -71,7 +77,7 @@ const create = function(req, res) {
   person.id = createId();
   person.entryDate = parseDate('01/03/2016');
   person.birthDate = parseDate('02/06/1991');
-  PEOPLES.push(person);
+  EMPLOYE.push(person);
 
   return res.status(200).json(person);
 };
@@ -82,7 +88,7 @@ const update = function(req, res) {
 
   var person = req.body;
 
-  var index = _.findIndex(PEOPLES, function(p) {
+  var index = _.findIndex(EMPLOYE, function(p) {
     return p.id === id;
   });
 
@@ -90,16 +96,16 @@ const update = function(req, res) {
     return res.status(404).json({ error: 'La personne avec l\'id "' + id + '" n\'existe pas.' });
   }
 
-  Object.assign(PEOPLES[index], person);
+  Object.assign(EMPLOYE[index], person);
 
-  return res.status(200).json(PEOPLES[index]);
+  return res.status(200).json(EMPLOYE[index]);
 };
 
 const del = function(req, res) {
   var id = getId(req);
-  console.log('Delete person : id=' + id);
+  console.log('Delete employe : id=' + id);
 
-  var index = _.findIndex(PEOPLES, function(p) {
+  var index = _.findIndex(EMPLOYE, function(p) {
     return p.id === id;
   });
 
@@ -107,13 +113,13 @@ const del = function(req, res) {
     return res.status(404).json({ error: 'La personne avec l\'id "' + id + '" n\'existe pas.' });
   }
 
-  PEOPLES.splice(index, 1);
+  EMPLOYE.splice(index, 1);
 
-  if (!PEOPLES || PEOPLES.length === 0) {
+  if (!EMPLOYE || EMPLOYE.length === 0) {
     return res.status(204).json();
   }
 
-  return res.status(200).json(PEOPLES);
+  return res.status(200).json(EMPLOYE);
 };
 
 function getParam(req, param) {
@@ -121,8 +127,7 @@ function getParam(req, param) {
 }
 
 function getId(req) {
-  var param = getParam(req, 'id');
-  return param;
+  return getParam(req, 'id');
 }
 
 function createId() {
@@ -138,4 +143,4 @@ function parseDate(stringDate) {
   }
 }
 
-export {listAll,filterByName,filterBySkill,update,create,getRandom, del }
+export {listAll,filterByName,filterBySkill,update,create,getRandom, del, get }

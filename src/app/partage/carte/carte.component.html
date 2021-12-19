@@ -1,29 +1,39 @@
 <mat-card class="carteCustom">
   <mat-card-header>
-    <img mat-card-avatar src="/assets/randomAvatar.png"/>
-    <mat-card-title>Patrick Sebastien</mat-card-title>
+    <img mat-card-avatar src="{{employe.photo}}" alt="Avatar de l'employé"/>
+    <mat-card-title>{{employe.nom}} {{employe.prenom}}</mat-card-title>
     <mat-card-subtitle>Manager</mat-card-subtitle>
   </mat-card-header>
   <mat-card-content>
     <mat-card-subtitle class="contact-info">
       <mat-icon>email</mat-icon>
       <a
-        href="mailto:"
+        href="mailto:{{employe.email}}"
         title="Send an email to"
         class="truncate"
-      >test@gmail.com</a
+      >{{employe.email}}</a
       >
     </mat-card-subtitle>
     <mat-card-subtitle class="contact-info">
       <mat-icon>phone</mat-icon>
-      <a href="tel:" title="Call">0606060606</a>
+      <a href="tel:" title="Call">{{employe.telephone}}</a>
     </mat-card-subtitle>
   </mat-card-content>
+  <mat-card-content>
+    <mat-chip-list>
+      <mat-chip color="primary" *ngFor="let titre of employe.titres">
+        <mat-icon class="small">
+          work_outline
+        </mat-icon>
+        {{titre}}
+      </mat-chip>
+    </mat-chip-list>
+  </mat-card-content>
   <mat-card-actions align="end">
-    <button mat-mini-fab aria-label="Editer" color="accent">
+    <button mat-mini-fab aria-label="Editer" color="accent" >
       <mat-icon>edit</mat-icon>
     </button>
-    <button mat-mini-fab aria-label="Supprimer" color="warn">
+    <button mat-mini-fab aria-label="Supprimer" color="warn" (click)="delete(employe)">
       <mat-icon>delete</mat-icon>
     </button>
   </mat-card-actions>

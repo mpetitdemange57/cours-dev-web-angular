@@ -20,6 +20,13 @@ import {MatListModule} from "@angular/material/list";
 import {HttpClientModule} from "@angular/common/http";
 import {MatDialogModule} from "@angular/material/dialog";
 import { ContactComponent } from './contact/contact.component';
+import {MatAutocompleteModule} from "@angular/material/autocomplete";
+import {MatFormFieldModule} from "@angular/material/form-field";
+import {MatInputModule} from "@angular/material/input";
+import {FormsModule, ReactiveFormsModule} from "@angular/forms";
+import {MatChipsModule} from "@angular/material/chips";
+import {MatCheckboxModule} from "@angular/material/checkbox";
+import { BarreDeRechercheComponent } from './partage/barre-de-recherche/barre-de-recherche.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +38,8 @@ import { ContactComponent } from './contact/contact.component';
     ListPersonnelComponent,
     FormulaireComponent,
     AjoutPopupComponent,
-    ContactComponent
+    ContactComponent,
+    BarreDeRechercheComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +52,14 @@ import { ContactComponent } from './contact/contact.component';
     MatSidenavModule,
     MatListModule,
     HttpClientModule,
-    MatDialogModule
+    MatDialogModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatChipsModule,
+    MatCheckboxModule,
+    FormsModule
   ],
   providers: [],
   bootstrap: [AppComponent]

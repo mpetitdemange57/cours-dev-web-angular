@@ -6,11 +6,11 @@ import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
   styleUrls: ['./carte.component.scss']
 })
 export class CarteComponent implements OnInit {
-  @Input() employee: any;
+  @Input() employe: any;
   @Output('personDelete') delete$: EventEmitter<any>;
 
   constructor() {
-    this.employee = {};
+    this.employe = {};
     this.delete$ = new EventEmitter();
   }
 
@@ -24,7 +24,7 @@ export class CarteComponent implements OnInit {
    * @param person
    */
   delete(person: any) {
-    this.delete$.emit(this.employee);
+    this.delete$.emit(this.employe);
   }
 
 
