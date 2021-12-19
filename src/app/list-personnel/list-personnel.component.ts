@@ -39,7 +39,6 @@ export class ListPersonnelComponent implements OnInit {
   }
 
   add(person: any) {
-    debugger;
     this.listPersonnelService
       .create(person)
       .pipe(mergeMap(() => this.listPersonnelService.fetch()))
