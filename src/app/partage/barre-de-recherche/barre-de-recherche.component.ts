@@ -1,7 +1,7 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {FormControl} from "@angular/forms";
-import {ListPersonnelService} from "../service/list-personnel.service";
 import {map, Observable, startWith} from "rxjs";
+import {ListPersonnelService} from "../service/list-personnel.service";
 
 @Component({
   selector: 'barre-de-recherche',
@@ -11,26 +11,35 @@ import {map, Observable, startWith} from "rxjs";
 export class BarreDeRechercheComponent implements OnInit{
   barreDeRecherche = new FormControl();
   personnel:any[] = [];
-  filteredPersonnel!: Observable<any[]>;
+  @Input() personnel$!: Observable<any>;
+  @Output('search') searchEvent$ = new EventEmitter<string>();
 
-  constructor(private readonly listPersonneService: ListPersonnelService) {
+  constructor(private readonly listPersonnelService: ListPersonnelService,) {
   }
 
 
   ngOnInit(): void {
     //Methode vide
-    this.filteredPersonnel = this.barreDeRecherche.valueChanges.pipe(
-      startWith(''),
-      map(employe => (employe ? this._filter(employe) : this.personnel.slice())),
-    );
-    this.listPersonneService.fetch().subscribe(personnel => {
+
+    this.listPersonnelService.fetch().subscribe(personnel => {
       this.personnel = personnel;
     });
+
+    this.personnel$ = this.barreDeRecherche.valueChanges.pipe(
+      startWith(''),
+      map(employe => (
+       employe ? this._filter(employe) : this.personnel.slice()
+      ))
+    );
   }
 
   private _filter(name: string): any[] {
     const filterValue = name.toLowerCase();
     return this.personnel.filter(employe => (employe.prenom + " " + employe.nom).toLowerCase().includes(filterValue));
+  }
+
+  search(value: string){
+    this.searchEvent$.emit(value);
   }
 
 }

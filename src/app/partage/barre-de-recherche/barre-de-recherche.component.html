@@ -6,13 +6,16 @@
       <mat-label>
           Rechercher employé
       </mat-label>
-      <input type="text"
+      <input
+              #searchBar
+             type="text"
              placeholder="Rechercher..."
              matInput
+             (input)="search(searchBar.value)"
              [formControl]="barreDeRecherche" [matAutocomplete]="auto"
       >
       <mat-autocomplete #auto="matAutocomplete">
-        <mat-option *ngFor="let employe of filteredPersonnel | async" [value]="employe.nom + ' ' + employe.prenom">
+        <mat-option *ngFor="let employe of personnel$ | async "  [value]="employe.nom + ' ' + employe.prenom">
           <img mat-card-avatar src="{{employe.photo}}" alt="Avatar de l'employé" class="avatar-barre-recherche"/>
           <span>{{employe.nom + ' ' + employe.prenom}}</span>
         </mat-option>

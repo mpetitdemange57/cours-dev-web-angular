@@ -1,6 +1,6 @@
 import {Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {mergeMap} from "rxjs";
+import {mergeMap, Observable} from "rxjs";
 import {AjoutPopupComponent} from "./ajout-popup/ajout-popup.component";
 import {FormControl} from "@angular/forms";
 import {ListPersonnelService} from "../partage/service/list-personnel.service";
@@ -13,10 +13,12 @@ import {ListPersonnelService} from "../partage/service/list-personnel.service";
 })
 export class ListPersonnelComponent implements OnInit {
   private addDialog: MatDialogRef<AjoutPopupComponent> | any;
+  search$;
   personnel: any[] = [];
   dialogStatus = 'inactive';
   personnelCtrl = new FormControl();
   view = 'card';
+  personnel$!: Observable<any[]>;
 
 
   constructor(private readonly listPersonnelService: ListPersonnelService, public dialog: MatDialog) {

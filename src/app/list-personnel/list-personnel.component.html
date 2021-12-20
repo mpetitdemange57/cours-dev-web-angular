@@ -1,6 +1,6 @@
 
 
-<barre-de-recherche ></barre-de-recherche>
+<barre-de-recherche [personnel$]="personnel$" ></barre-de-recherche>
 
 
 
@@ -15,7 +15,7 @@
 
   <section *ngSwitchCase="'list'">
     <mat-list>
-      <mat-list-item *ngFor="let employe of personnel " class="mat-whiteframe-2dp mat-card">
+      <mat-list-item *ngFor="let employe of personnel$ | async" class="mat-whiteframe-2dp mat-card">
         <img mat-list-avatar src="{{ employe.photo }}" alt="Avatar de l'employé"/>
         <h3 mat-line>{{ employe.prenom }} {{ employe.nom }} </h3>
         <p mat-line>
