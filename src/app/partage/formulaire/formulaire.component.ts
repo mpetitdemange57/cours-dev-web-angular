@@ -11,6 +11,7 @@ export class FormulaireComponent {
 
   @Output('cancel') cancel$: EventEmitter<any>;
   @Output('personAdd') add$: EventEmitter<any>;
+  fileName = '';
 
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
   titres: any[] = [];
@@ -48,5 +49,19 @@ export class FormulaireComponent {
       this.titres.splice(index, 1);
     }
   }
+
+  onFileSelected(event:any) {
+
+    const file:File = event.target.files[0];
+
+    if (file) {
+
+        this.fileName = file.name;
+
+        const formData = new FormData();
+
+        formData.append("thumbnail", file);
+    }
+}
 
 }

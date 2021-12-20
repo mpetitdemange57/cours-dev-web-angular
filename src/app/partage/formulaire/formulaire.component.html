@@ -11,9 +11,25 @@
             <mat-form-field> <input ngModel matInput placeholder="Prénom *" name="prenom" /> </mat-form-field>
             <mat-form-field> <input ngModel matInput placeholder="Nom *" name="nom" /> </mat-form-field>
           </td>
-          <td class="align-right">
-            <img width="100" src="https://randomuser.me/api/portraits/lego/6.jpg" alt="Photo de l'employé"/>
-            <input type="hidden" ngModel name="photo" />
+          <td class="align-center">
+            
+            <input #fileInput type="file" (change)="onFileSelected($event)" ngModel name="photo" style="display: none;" /> 
+            <div *ngIf="fileName" >
+              <img width="100" src="https://randomuser.me/api/portraits/lego/6.jpg" alt="Photo de l'employé" /> <br>
+              <button mat-flat-button color="warn">
+                <mat-icon>
+                  cancel
+                </mat-icon>
+              </button>
+            </div>
+            <div class="file-upload" *ngIf="!fileName">
+              <button (click)="fileInput.click()" mat-fab>
+                <mat-icon>
+                  image
+                </mat-icon>
+              </button>
+            </div>
+        
           </td>
         </tr>
       </table>
