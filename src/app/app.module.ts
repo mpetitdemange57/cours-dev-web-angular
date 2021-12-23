@@ -26,6 +26,8 @@ import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import {MatChipsModule} from "@angular/material/chips";
 import {MatCheckboxModule} from "@angular/material/checkbox";
 import {BarreDeRechercheComponent} from './partage/barre-de-recherche/barre-de-recherche.component';
+import { HeaderComponent } from './header/header.component';
+import { DrawerComponent } from './drawer/drawer.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import {BarreDeRechercheComponent} from './partage/barre-de-recherche/barre-de-r
     FormulaireComponent,
     AjoutPopupComponent,
     ContactComponent,
-    BarreDeRechercheComponent
+    BarreDeRechercheComponent,
+    HeaderComponent,
+    DrawerComponent
   ],
   imports: [
     BrowserModule,
