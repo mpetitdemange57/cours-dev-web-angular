@@ -1,5 +1,6 @@
 import * as _ from "underscore"
 import {base64_encode} from './encodingUtils.js';
+import {where} from './objectUtils.js';
 
 import * as LIST_EMPLOYEES from "./data/SeattleGraceEmployees.js";
 
@@ -25,9 +26,7 @@ const filterByName = function(req, res) {
   var name = getParam(req, 'name');
   console.log('List by name : name=' + name);
 
-  EMPLOYE = _.union(_.where(EMPLOYE, { lastname: name }), _.where(EMPLOYE, { firstname: name }));
-
-  return res.status(200).json(EMPLOYE);
+  return res.status(200).json([...where(EMPLOYE, { nom: name }), ...where(EMPLOYE, { prenom: name })]);
 };
 
 const filterBySkill = function(req, res) {
@@ -44,7 +43,7 @@ const filterBySkill = function(req, res) {
 const get = function(req, res) {
   var id = getId(req);
   console.log('Get person : id=' + id);
-  console.log(EMPLOYE);
+
   var person = _.findWhere(EMPLOYE, { id: id });
 
   if (!person) {

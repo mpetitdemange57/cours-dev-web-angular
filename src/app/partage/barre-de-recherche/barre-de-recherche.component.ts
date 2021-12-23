@@ -1,36 +1,59 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnDestroy, OnInit, Output} from '@angular/core';
 import {FormControl} from "@angular/forms";
 import {ListPersonnelService} from "../service/list-personnel.service";
-import {map, Observable, startWith} from "rxjs";
+import {catchError, debounceTime, distinctUntilChanged, Observable, of, Subscription, switchMap, take} from "rxjs";
 
 @Component({
   selector: 'barre-de-recherche',
   templateUrl: './barre-de-recherche.component.html',
   styleUrls: ['./barre-de-recherche.component.scss']
 })
-export class BarreDeRechercheComponent implements OnInit{
+export class BarreDeRechercheComponent implements OnInit, OnDestroy {
+
   barreDeRecherche = new FormControl();
-  personnel:any[] = [];
   filteredPersonnel!: Observable<any[]>;
 
-  constructor(private readonly listPersonneService: ListPersonnelService) {
+  filteredPersonnelSubscription: Subscription | null = null;
+  listPersonneServiceSubscription: Subscription | null = null;
+
+  @Input() personnel: any[] = [];
+
+  @Output() readonly typing = new EventEmitter<any[]>();
+
+  constructor(
+    private readonly listPersonneService: ListPersonnelService) {
   }
 
-
   ngOnInit(): void {
-    //Methode vide
     this.filteredPersonnel = this.barreDeRecherche.valueChanges.pipe(
-      startWith(''),
-      map(employe => (employe ? this._filter(employe) : this.personnel.slice())),
+      debounceTime(400),
+      distinctUntilChanged(),
+      switchMap(value => {
+        if (value) {
+          return this.listPersonneService.search(value).pipe(
+            catchError(() => of([]))
+          );
+        } else {
+          return this.listPersonneService.fetch();
+        }
+      })
     );
-    this.listPersonneService.fetch().subscribe(personnel => {
-      this.personnel = personnel;
+
+    this.filteredPersonnelSubscription = this.filteredPersonnel.subscribe({
+      next: personnel => this.typing.emit(personnel)
+    });
+
+    this.listPersonneServiceSubscription = this.listPersonneService.employees$.subscribe({
+      next: () => {
+        this.listPersonneService.fetch().pipe(take(1)).subscribe(personnel => this.personnel = personnel);
+        this.barreDeRecherche.setValue('');
+      }
     });
   }
 
-  private _filter(name: string): any[] {
-    const filterValue = name.toLowerCase();
-    return this.personnel.filter(employe => (employe.prenom + " " + employe.nom).toLowerCase().includes(filterValue));
+  ngOnDestroy() {
+    this.filteredPersonnelSubscription?.unsubscribe();
+    this.listPersonneServiceSubscription?.unsubscribe();
   }
 
 }

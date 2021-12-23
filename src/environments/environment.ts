@@ -7,7 +7,8 @@ export const environment = {
     endpoints: {
       employeAleatoire: '/api/employe/random',
       tousLesEmployes: '/api/employe',
-      unEmploye: '/api/employe/:id'
+      unEmploye: '/api/employe/:id',
+      filterByName: '/api/employe/name/:name'
     }
   }
 };

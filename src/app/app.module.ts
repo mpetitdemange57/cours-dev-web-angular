@@ -14,7 +14,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {ListPersonnelComponent} from './list-personnel/list-personnel.component';
 import {FormulaireComponent} from './partage/formulaire/formulaire.component';
-import {AjoutPopupComponent} from './list-personnel/ajout-popup/ajout-popup.component';
+import {EditPopupComponent} from './list-personnel/edit-popup/edit-popup.component';
 import {MatListModule} from "@angular/material/list";
 import {HttpClientModule} from "@angular/common/http";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -35,7 +35,7 @@ import {BarreDeRechercheComponent} from './partage/barre-de-recherche/barre-de-r
     CarteComponent,
     ListPersonnelComponent,
     FormulaireComponent,
-    AjoutPopupComponent,
+    EditPopupComponent,
     ContactComponent,
     BarreDeRechercheComponent
   ],

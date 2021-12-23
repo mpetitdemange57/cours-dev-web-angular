@@ -1,6 +1,7 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
+import {Person} from "../service/list-personnel.service";
 
 @Component({
   selector: 'formulaire',
@@ -9,27 +10,31 @@ import {COMMA, ENTER} from "@angular/cdk/keycodes";
 })
 export class FormulaireComponent {
 
-  @Output('cancel') cancel$: EventEmitter<any>;
-  @Output('personAdd') add$: EventEmitter<any>;
+  @Output('cancel') cancel$: EventEmitter<any> = new EventEmitter();
+
+  @Output('personAdd') add$: EventEmitter<Person> = new EventEmitter();
+  @Output('personUpdate') update$: EventEmitter<Person> = new EventEmitter();
+
   fileName = '';
 
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
+
   titres: any[] = [];
+
   addOnBlur = true;
-
-  constructor() {
-    this.add$ = new EventEmitter();
-    this.cancel$ = new EventEmitter();
-  }
-
 
   cancel() {
     this.cancel$.emit();
   }
 
-  add(employe: any) {
+  add(employe: Person) {
     employe.titres = this.titres;
     this.add$.emit(employe);
+  }
+
+  update(employe: Person) {
+    employe.titres = this.titres;
+    this.update$.emit(employe);
   }
 
   addChipset(event: MatChipInputEvent): void {

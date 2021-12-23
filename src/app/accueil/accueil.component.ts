@@ -1,8 +1,5 @@
 import {Component, OnInit} from '@angular/core';
-import {ListPersonnelService} from "../partage/service/list-personnel.service";
-
-const SERVER_URL = 'http://localhost:3000';
-
+import {ListPersonnelService, Person} from "../partage/service/list-personnel.service";
 
 @Component({
   selector: 'app-accueil',
@@ -10,7 +7,7 @@ const SERVER_URL = 'http://localhost:3000';
   styleUrls: ['./accueil.component.scss']
 })
 export class AccueilComponent implements OnInit {
-  employe: any = {};
+  employe: Person = {};
 
   constructor(private readonly listPersonnelService: ListPersonnelService) {}
 

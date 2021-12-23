@@ -1,9 +1,9 @@
-import {Component, OnInit} from '@angular/core';
+import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {mergeMap} from "rxjs";
-import {AjoutPopupComponent} from "./ajout-popup/ajout-popup.component";
+import {BehaviorSubject, mergeMap, of} from "rxjs";
+import {EditPopupComponent, PopupAction} from "./edit-popup/edit-popup.component";
 import {FormControl} from "@angular/forms";
-import {ListPersonnelService} from "../partage/service/list-personnel.service";
+import {ListPersonnelService, Person} from "../partage/service/list-personnel.service";
 
 
 @Component({
@@ -12,15 +12,21 @@ import {ListPersonnelService} from "../partage/service/list-personnel.service";
   styleUrls: ['./list-personnel.component.scss']
 })
 export class ListPersonnelComponent implements OnInit {
-  private addDialog: MatDialogRef<AjoutPopupComponent> | any;
-  personnel: any[] = [];
+
+  private addDialog: MatDialogRef<EditPopupComponent> | any;
+  personnel: Person[] = [];
   dialogStatus = 'inactive';
-  personnelCtrl = new FormControl();
   view = 'card';
 
+  constructor(
+    private readonly listPersonnelService: ListPersonnelService,
+    public dialog: MatDialog,
+    private cdr: ChangeDetectorRef) {
 
-  constructor(private readonly listPersonnelService: ListPersonnelService, public dialog: MatDialog) {
+  }
 
+  personnelFiltered(personnel: any[]) {
+    this.personnel = personnel;
   }
 
   /**
@@ -28,17 +34,19 @@ export class ListPersonnelComponent implements OnInit {
    */
   ngOnInit() {
     this.listPersonnelService.fetch().subscribe(personnel => {
-      this.personnel = personnel;
+      this.personnel = personnel || [];
     });
   }
 
-  delete(person: any) {
-    this.listPersonnelService.delete(person.id).subscribe(personnel => {
+  delete(person: Person) {
+    this.listPersonnelService.delete(person.id!).subscribe(personnel => {
       this.personnel = personnel;
+      this.listPersonnelService.updatedEmployeeList(person.id!);
+      this.cdr.markForCheck();
     });
   }
 
-  add(person: any) {
+  add(person: Person) {
     this.listPersonnelService
       .create(person)
       .pipe(mergeMap(() => this.listPersonnelService.fetch()))
@@ -48,18 +56,38 @@ export class ListPersonnelComponent implements OnInit {
       });
   }
 
+  update(person: Person) {
+    this.listPersonnelService
+      .update(person)
+      .pipe(mergeMap(() => this.listPersonnelService.fetch()))
+      .subscribe(personnel => {
+        this.personnel = personnel;
+        this.hideDialog();
+      });
+  }
 
   showDialog() {
     this.dialogStatus = 'active';
-    this.addDialog = this.dialog.open(AjoutPopupComponent, {
+    this.addDialog = this.dialog.open(EditPopupComponent, {
       width: '450px',
       data: {}
     });
 
-    this.addDialog.afterClosed().subscribe((person: any) => {
-      this.dialogStatus = 'inactive';
-      if (person) {
-        this.add(person);
+    this.addDialog.afterClosed().subscribe({
+      next: (popupAction: PopupAction) => {
+
+        const {
+          mode,
+          ...person
+        } = popupAction;
+
+        this.dialogStatus = 'inactive';
+
+        if (mode === 'none') {
+          return;
+        }
+
+        mode === 'create' ? this.add(person) : this.update(person);
       }
     });
   }

@@ -24,7 +24,7 @@ app.use(function(req, res, next) {
 app.get(Url._employeUrl, api.listAll);
 app.get(Url._employeUrl + '/random', api.getRandom);
 app.get(Url._employeUrl + '/:id', api.get);
-app.get(Url._employeUrl + 'name/:name', api.filterByName);
+app.get(Url._employeUrl + '/name/:name', api.filterByName);
 app.get(Url._employeUrl + 'skill/:skill', api.filterBySkill);
 app.post(Url._employeUrl, api.create);
 app.put(Url._employeUrl + '/:id', api.update);

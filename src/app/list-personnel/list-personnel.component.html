@@ -1,21 +1,22 @@
-
-
-<barre-de-recherche ></barre-de-recherche>
-
-
+<barre-de-recherche [personnel]="personnel" (typing)="personnelFiltered($event)"></barre-de-recherche>
 
 <section>
-  <span> {{personnel.length}} Employé(s) trouvé(s)</span>
+  <span>
+    {personnel?.length, plural,
+      =0 {Aucun employé trouvé}
+      =1 {1 Employé trouvé}
+      other {{{ personnel?.length }} Employés trouvés}}
+  </span>
 </section>
 
 <section [ngSwitch]="view">
   <section *ngSwitchCase="'card'">
-    <carte [employe]="employe" (personDelete)="delete($event)" *ngFor="let employe of personnel" ></carte>
+    <carte [employe]="employe" (personDelete)="delete($event)" (personUpdate)="update($event)" *ngFor="let employe of personnel" ></carte>
   </section>
 
   <section *ngSwitchCase="'list'">
     <mat-list>
-      <mat-list-item *ngFor="let employe of personnel " class="mat-whiteframe-2dp mat-card">
+      <mat-list-item *ngFor="let employe of personnel" class="mat-whiteframe-2dp mat-card">
         <img mat-list-avatar src="{{ employe.photo }}" alt="Avatar de l'employé"/>
         <h3 mat-line>{{ employe.prenom }} {{ employe.nom }} </h3>
         <p mat-line>

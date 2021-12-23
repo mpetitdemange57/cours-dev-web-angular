@@ -1,12 +1,28 @@
 import { Injectable } from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {Observable} from "rxjs";
+import {BehaviorSubject, Observable, tap} from "rxjs";
+
+export interface Person {
+  id?: string;
+  nom?: string;
+  prenom?: string;
+  photo?: string;
+  age?: string;
+  sexe?: string;
+  telephone?: string;
+  email?: string;
+  titres?: string[];
+  chefId?: string;
+}
 
 @Injectable({
   providedIn: 'root'
 })
 export class ListPersonnelService {
+
+  private employees = new BehaviorSubject<string>('');
+
   private urlServer:any = {};
 
   constructor(private readonly http: HttpClient) {
@@ -26,27 +42,39 @@ export class ListPersonnelService {
 
   }
 
-  fetch(): Observable<any> {
-    return this.http.get(this.urlServer.tousLesEmployes);
+  get employees$(): Observable<string> {
+    return this.employees.asObservable();
   }
 
-  fetchRandom(): Observable<any> {
-    return this.http.get(this.urlServer.employeAleatoire);
+  updatedEmployeeList(data: string){
+    this.employees.next(data);
+  }
+
+  fetch(): Observable<Person[]> {
+    return this.http.get<Person[]>(this.urlServer.tousLesEmployes);
+  }
+
+  search(name: string): Observable<Person[]> {
+    return this.http.get<Person[]>(this.urlServer.filterByName.replace(':name', name));
+  }
+
+  fetchRandom(): Observable<Person> {
+    return this.http.get<Person>(this.urlServer.employeAleatoire);
   }
 
   delete(id: string): Observable<any> {
     return this.http.delete(this.urlServer.unEmploye.replace(':id', id));
   }
 
-  create(employe: any): Observable<any> {
-    return this.http.post(this.urlServer.tousLesEmployes, employe);
+  create(employe: Person): Observable<Person> {
+    return this.http.post<Person>(this.urlServer.tousLesEmployes, employe);
   }
 
-  fetchOne(id: string): Observable<any> {
-    return this.http.get(this.urlServer.unEmploye.replace(':id', id));
+  fetchOne(id: string): Observable<Person> {
+    return this.http.get<Person>(this.urlServer.unEmploye.replace(':id', id));
   }
 
-  update(employe: any): Observable<any> {
-    return this.http.put(this.urlServer.unEmploye.replace(':id', employe.id), employe);
+  update(employe: Person): Observable<Person> {
+    return this.http.put<Person>(this.urlServer.unEmploye.replace(':id', employe.id), employe);
   }
 }
