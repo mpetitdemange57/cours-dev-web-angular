@@ -1,3 +1,7 @@
+# 0. Outils utilisés
+* [Angular Material](https://material.angular.io/)
+* [ngx-echarts](https://www.npmjs.com/package/ngx-echarts)
+
 # ⬇ 1. Installation
 1. Clonez le projet avec la commande `git clone https://github.com/MarcPetitdemange/cours-dev-web-angular.git`
 2. Allez à la racine du projet `cd {nomDeLaRacineDeVotreProjet}`
