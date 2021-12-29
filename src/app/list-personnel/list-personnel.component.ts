@@ -1,8 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
-import {BehaviorSubject, mergeMap, of} from "rxjs";
+import {mergeMap} from "rxjs";
 import {EditPopupComponent, PopupAction} from "./edit-popup/edit-popup.component";
-import {FormControl} from "@angular/forms";
 import {ListPersonnelService, Person} from "../partage/service/list-personnel.service";
 
 
@@ -69,7 +68,7 @@ export class ListPersonnelComponent implements OnInit {
   showDialog() {
     this.dialogStatus = 'active';
     this.addDialog = this.dialog.open(EditPopupComponent, {
-      width: '450px',
+      width: '600px',
       data: {}
     });
 

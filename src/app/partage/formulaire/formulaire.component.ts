@@ -15,13 +15,11 @@ export class FormulaireComponent {
   @Output('personAdd') add$: EventEmitter<Person> = new EventEmitter();
   @Output('personUpdate') update$: EventEmitter<Person> = new EventEmitter();
 
-  fileName = '';
+  fileName : string | null = '';
 
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
   titres: any[] = [];
-
-  addOnBlur = true;
 
   cancel() {
     this.cancel$.emit();
