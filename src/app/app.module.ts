@@ -29,6 +29,8 @@ import {BarreDeRechercheComponent} from './partage/barre-de-recherche/barre-de-r
 import { HeaderComponent } from './header/header.component';
 import { DrawerComponent } from './drawer/drawer.component';
 import {NgxEchartsModule} from "ngx-echarts";
+import {MatRadioModule} from "@angular/material/radio";
+import {MatGridListModule} from "@angular/material/grid-list";
 
 @NgModule({
   declarations: [
@@ -44,30 +46,33 @@ import {NgxEchartsModule} from "ngx-echarts";
     HeaderComponent,
     DrawerComponent
   ],
-    imports: [
-        BrowserModule,
-        AppRoutingModule,
-        BrowserAnimationsModule,
-        MatToolbarModule,
-        MatCardModule,
-        MatIconModule,
-        MatButtonModule,
-        MatSidenavModule,
-        MatListModule,
-        HttpClientModule,
-        MatDialogModule,
-        MatAutocompleteModule,
-        MatFormFieldModule,
-        MatInputModule,
-        ReactiveFormsModule,
-        MatChipsModule,
-        MatCheckboxModule,
-        FormsModule,
-        NgxEchartsModule,
-        NgxEchartsModule.forRoot({
-          echarts: () => import('echarts')
-        }), // or import('./path-to-my-custom-echarts')
-    ],
+  imports: [
+    BrowserModule,
+    AppRoutingModule,
+    BrowserAnimationsModule,
+    MatToolbarModule,
+    MatCardModule,
+    MatIconModule,
+    MatButtonModule,
+    MatSidenavModule,
+    MatListModule,
+    HttpClientModule,
+    MatDialogModule,
+    MatAutocompleteModule,
+    MatFormFieldModule,
+    MatInputModule,
+    ReactiveFormsModule,
+    MatChipsModule,
+    MatCheckboxModule,
+    FormsModule,
+    NgxEchartsModule,
+    NgxEchartsModule.forRoot({
+      echarts: () => import('echarts')
+    }),
+    MatRadioModule,
+    MatGridListModule,
+    // or import('./path-to-my-custom-echarts')
+  ],
   providers: [],
   bootstrap: [AppComponent]
 })

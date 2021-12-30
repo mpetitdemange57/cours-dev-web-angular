@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, EventEmitter, Input, Output} from '@angular/core';
 import {Person} from "../service/list-personnel.service";
 
 @Component({
@@ -13,8 +13,6 @@ export class CarteComponent {
   @Output('personDelete') delete$: EventEmitter<any> = new EventEmitter();
 
   @Output('personUpdate') update$: EventEmitter<any> = new EventEmitter();
-
-  showButton: boolean = false;
 
   constructor() {
     this.employe = {};
