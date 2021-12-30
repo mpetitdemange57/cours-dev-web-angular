@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {mergeMap} from "rxjs";
-import {EditPopupComponent, PopupAction} from "./edit-popup/edit-popup.component";
+import {AjoutPopupComponent, PopupAction} from "./ajout-popup/ajout-popup.component";
 import {ListPersonnelService, Person} from "../partage/service/list-personnel.service";
 
 
@@ -12,7 +12,7 @@ import {ListPersonnelService, Person} from "../partage/service/list-personnel.se
 })
 export class ListPersonnelComponent implements OnInit {
 
-  private addDialog: MatDialogRef<EditPopupComponent> | any;
+  private addDialog: MatDialogRef<AjoutPopupComponent> | any;
   personnel: Person[] = [];
   dialogStatus = 'inactive';
   view = 'card';
@@ -67,7 +67,7 @@ export class ListPersonnelComponent implements OnInit {
 
   showDialog() {
     this.dialogStatus = 'active';
-    this.addDialog = this.dialog.open(EditPopupComponent, {
+    this.addDialog = this.dialog.open(AjoutPopupComponent, {
       width: '600px',
       data: {}
     });

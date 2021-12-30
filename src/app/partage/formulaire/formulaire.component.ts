@@ -1,39 +1,58 @@
-import {Component, EventEmitter, Output} from '@angular/core';
+import {AfterViewInit, Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {Person} from "../service/list-personnel.service";
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'formulaire',
   templateUrl: './formulaire.component.html',
   styleUrls: ['./formulaire.component.scss']
 })
-export class FormulaireComponent {
+export class FormulaireComponent implements OnInit,AfterViewInit {
+  form: FormGroup;
+  @Input() employeModel: Person;
 
-  @Output('cancel') cancel$: EventEmitter<any> = new EventEmitter();
 
-  @Output('personAdd') add$: EventEmitter<Person> = new EventEmitter();
-  @Output('personUpdate') update$: EventEmitter<Person> = new EventEmitter();
+  @Output('cancel') cancelEvent$: EventEmitter<any>;
+  @Output('submit') submitEvent$: EventEmitter<any>;
 
-  fileName : string | null = '';
 
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
 
+  fileName : string | null = '';
   titres: any[] = [];
 
+  constructor() {
+    this.submitEvent$ = new EventEmitter();
+    this.cancelEvent$ = new EventEmitter();
+    this.form = this.buildForm();
+    this.employeModel = {};
+
+  }
+
+  ngOnInit() {
+
+  }
+
+  ngAfterViewInit() {
+    debugger;
+    this.form.setValue({
+      id: this.employeModel.id,
+      nom: this.employeModel.nom,
+      prenom: this.employeModel.prenom
+    });
+  }
+
   cancel() {
-    this.cancel$.emit();
+    this.cancelEvent$.emit();
   }
 
-  add(employe: Person) {
-    employe.titres = this.titres;
-    this.add$.emit(employe);
+  submit(employe: Person) {
+    debugger; //Formulaire
+    this.submitEvent$.emit(employe);
   }
 
-  update(employe: Person) {
-    employe.titres = this.titres;
-    this.update$.emit(employe);
-  }
 
   addChipset(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
@@ -65,6 +84,24 @@ export class FormulaireComponent {
 
         formData.append("thumbnail", file);
     }
-}
+  }
+
+  /**
+   * Fonction pour construire notre formulaire
+   * @returns {FormGroup}
+   *
+   * @private
+   */
+  private buildForm(): FormGroup {
+    return new FormGroup({
+      id: new FormControl(''),
+      prenom: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+      nom: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
+      email: new FormControl('', Validators.required),
+      sexe: new FormControl(),
+      photo: new FormControl('https://randomuser.me/api/portraits/lego/6.jpg'),
+      telephone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('\\d{10}')])),
+    });
+  }
 
 }

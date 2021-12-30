@@ -2,17 +2,17 @@
   <mat-card-title> <span>➕ Créer un(e) employé(e)</span> </mat-card-title>
 
   <mat-card-content>
-    <form #f="ngForm">
+    <form novalidate [formGroup]="form">
 
       <p>
-            <mat-form-field class="name"> <input ngModel matInput placeholder="Nom *" name="nom" /> </mat-form-field>
-            <mat-form-field class="name"> <input ngModel matInput placeholder="Prénom *" name="prenom" /> </mat-form-field>
+            <mat-form-field class="name" > <input formControlName="nom"  matInput placeholder="Nom *" name="nom" /> </mat-form-field>
+            <mat-form-field class="name" > <input formControlName="prenom"  matInput placeholder="Prénom *" name="prenom" /> </mat-form-field>
       </p>
 
       <p>
         <label class="mat-checkbox-label">Sexe *</label>
-        <mat-radio-group aria-label="Sexe *" class="radio-group" name="sexe" ngModel="sexe" >
-          <mat-radio-button value="H" class="radio-button" >Homme</mat-radio-button>
+        <mat-radio-group aria-label="Sexe *" class="radio-group" name="sexe" formControlName="sexe" [value]="employeModel.sexe" >
+          <mat-radio-button value="M" class="radio-button" >Homme</mat-radio-button>
           <mat-radio-button value="F" class="radio-button" >Femme</mat-radio-button>
           <mat-radio-button value="A" class="radio-button" >Autre</mat-radio-button>
         </mat-radio-group>
@@ -20,13 +20,13 @@
 
       <p>
         <mat-form-field>
-          <input ngModel matInput placeholder="Email *" style="width:100%" name="email" />
+          <input  matInput placeholder="Email *" style="width:100%" name="email" formControlName="email" [value]="employeModel.email" />
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field>
-          <input ngModel matInput placeholder="Téléphone * (ex: 0612345678)" style="width:100%" name="telephone" />
+          <input  matInput placeholder="Téléphone * (ex: 0612345678)" style="width:100%" name="telephone" formControlName="telephone" [value]="employeModel.telephone" />
         </mat-form-field>
       </p>
 
@@ -34,7 +34,7 @@
         <mat-form-field class="chip-list" >
           <mat-label>Fonctions :</mat-label>
           <mat-chip-list #chipList aria-label="Intitulés des fonctions de l'employés">
-            <mat-chip *ngFor="let titre of titres" (removed)="removeChipset(titre)">
+            <mat-chip *ngFor="let titre of employeModel.titres" (removed)="removeChipset(titre)" >
               {{titre}}
               <button matChipRemove>
                 <mat-icon>cancel</mat-icon>
@@ -48,7 +48,7 @@
         </mat-form-field>
       </p>
 
-      <input #fileInput type="file" (change)="onFileSelected($event)" ngModel name="photo" style="display: none;" />
+      <input #fileInput type="file" (change)="onFileSelected($event)"  name="photo" style="display: none;" />
       <div *ngIf="fileName" >
         <img width="100" src=" https://randomuser.me/api/portraits/lego/6.jpg" alt="Photo de l'employé" /> <br>
         <button mat-flat-button color="warn" (click)="fileName = null;">
@@ -70,6 +70,6 @@
 
   <mat-card-actions align="end">
     <button mat-button type="button" (click)="cancel()">Annuler</button>
-    <button mat-button color="primary" type="submit" (click)="add(this.f.value)">Valider</button>
+    <button mat-button color="primary" type="submit" (click)="submit(form.value)">Valider</button>
   </mat-card-actions>
 </mat-card>

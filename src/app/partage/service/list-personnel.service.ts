@@ -75,6 +75,7 @@ export class ListPersonnelService {
   }
 
   update(employe: Person): Observable<Person> {
+    debugger;
     return this.http.put<Person>(this.urlServer.unEmploye.replace(':id', employe.id), employe);
   }
 }

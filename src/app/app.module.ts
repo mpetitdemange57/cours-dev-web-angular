@@ -14,7 +14,7 @@ import {MatButtonModule} from "@angular/material/button";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {ListPersonnelComponent} from './list-personnel/list-personnel.component';
 import {FormulaireComponent} from './partage/formulaire/formulaire.component';
-import {EditPopupComponent} from './list-personnel/edit-popup/edit-popup.component';
+import {AjoutPopupComponent} from './list-personnel/ajout-popup/ajout-popup.component';
 import {MatListModule} from "@angular/material/list";
 import {HttpClientModule} from "@angular/common/http";
 import {MatDialogModule} from "@angular/material/dialog";
@@ -31,6 +31,7 @@ import { DrawerComponent } from './drawer/drawer.component';
 import {NgxEchartsModule} from "ngx-echarts";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatGridListModule} from "@angular/material/grid-list";
+import { EditionComponent } from './list-personnel/edition/edition.component';
 
 @NgModule({
   declarations: [
@@ -40,11 +41,12 @@ import {MatGridListModule} from "@angular/material/grid-list";
     CarteComponent,
     ListPersonnelComponent,
     FormulaireComponent,
-    EditPopupComponent,
+    AjoutPopupComponent,
     ContactComponent,
     BarreDeRechercheComponent,
     HeaderComponent,
-    DrawerComponent
+    DrawerComponent,
+    EditionComponent
   ],
   imports: [
     BrowserModule,
