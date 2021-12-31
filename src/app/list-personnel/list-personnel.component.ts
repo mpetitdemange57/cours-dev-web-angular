@@ -51,6 +51,7 @@ export class ListPersonnelComponent implements OnInit {
       .pipe(mergeMap(() => this.listPersonnelService.fetch()))
       .subscribe(personnel => {
         this.personnel = personnel;
+        debugger;
         this.hideDialog();
       });
   }
@@ -74,24 +75,21 @@ export class ListPersonnelComponent implements OnInit {
 
     this.addDialog.afterClosed().subscribe({
       next: (popupAction: PopupAction) => {
-
         const {
           mode,
           ...person
         } = popupAction;
-
         this.dialogStatus = 'inactive';
-
         if (mode === 'none') {
           return;
         }
-
         mode === 'create' ? this.add(person) : this.update(person);
       }
     });
   }
 
   hideDialog() {
+    debugger;
     this.dialogStatus = 'inactive';
     if(this.addDialog != undefined){
       this.addDialog.close();
