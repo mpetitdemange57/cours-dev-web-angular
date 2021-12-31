@@ -76,6 +76,11 @@ const create = function(req, res) {
   person.id = createId();
   person.entryDate = parseDate('01/03/2016');
   person.birthDate = parseDate('02/06/1991');
+
+  if(person.titres === "" || person.titres === undefined ){
+    person.titres = [];
+  }
+
   EMPLOYE.push(person);
 
   return res.status(200).json(person);

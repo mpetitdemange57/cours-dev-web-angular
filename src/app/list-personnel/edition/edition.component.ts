@@ -1,7 +1,6 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ActivatedRoute, Router} from "@angular/router";
 import {ListPersonnelService, Person} from "../../partage/service/list-personnel.service";
-import {map, mergeMap, switchMap} from "rxjs";
 
 @Component({
   selector: 'app-edition',
@@ -27,7 +26,7 @@ export class EditionComponent implements OnInit {
    * OnInit implementation
    */
   ngOnInit() {
-    this.route.data.subscribe(( employe: Person) => (this.employe = employe));
+    this.route.data.subscribe(( employe: any) => (this.employe = employe.employe));
   }
 
   submit(employe: any) {
