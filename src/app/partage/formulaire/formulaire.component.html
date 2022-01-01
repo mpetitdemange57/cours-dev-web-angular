@@ -11,7 +11,7 @@
 
       <p>
         <label class="mat-checkbox-label">Sexe *</label>
-        <mat-radio-group aria-label="Sexe *" class="radio-group" name="sexe" formControlName="sexe" [value]="employeModel.sexe" >
+        <mat-radio-group aria-label="Sexe *" class="radio-group" name="sexe" formControlName="sexe">
           <mat-radio-button value="M" class="radio-button" >Homme</mat-radio-button>
           <mat-radio-button value="F" class="radio-button" >Femme</mat-radio-button>
           <mat-radio-button value="A" class="radio-button" >Autre</mat-radio-button>
@@ -20,13 +20,13 @@
 
       <p>
         <mat-form-field>
-          <input  matInput placeholder="Email *" style="width:100%" name="email" formControlName="email" [value]="employeModel.email" />
+          <input matInput placeholder="Email" style="width:100%" name="email" formControlName="email" />
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field>
-          <input  matInput placeholder="Téléphone * (ex: 0612345678)" style="width:100%" name="telephone" formControlName="telephone" [value]="employeModel.telephone" />
+          <input  matInput placeholder="Téléphone * (ex: 0612345678)" style="width:100%" name="telephone" formControlName="telephone" />
         </mat-form-field>
       </p>
 

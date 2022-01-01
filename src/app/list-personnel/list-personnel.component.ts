@@ -1,7 +1,7 @@
 import {ChangeDetectorRef, Component, OnInit} from '@angular/core';
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {mergeMap} from "rxjs";
-import {AjoutPopupComponent, PopupAction} from "./ajout-popup/ajout-popup.component";
+import {AjoutPopupComponent} from "./ajout-popup/ajout-popup.component";
 import {ListPersonnelService, Person} from "../partage/service/list-personnel.service";
 
 
@@ -73,17 +73,10 @@ export class ListPersonnelComponent implements OnInit {
       data: {}
     });
 
-    this.addDialog.afterClosed().subscribe({
-      next: (popupAction: PopupAction) => {
-        const {
-          mode,
-          ...person
-        } = popupAction;
-        this.dialogStatus = 'inactive';
-        if (mode === 'none') {
-          return;
-        }
-        mode === 'create' ? this.add(person) : this.update(person);
+    this.addDialog.afterClosed().subscribe((person:any)=> {
+      this.dialogStatus = 'inactive';
+      if (person) {
+        this.add(person);
       }
     });
   }
