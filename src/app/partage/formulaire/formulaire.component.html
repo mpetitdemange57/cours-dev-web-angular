@@ -58,7 +58,7 @@
         </button>
       </div>
       <div class="file-upload" *ngIf="!fileName">
-        <button (click)="fileInput.click()" mat-fab>
+        <button type="button" (click)="fileInput.click()" mat-fab>
           <mat-icon>
             image
           </mat-icon>
@@ -69,6 +69,6 @@
 
   <mat-card-actions align="end">
     <button mat-button type="button" (click)="cancel()">Annuler</button>
-    <button mat-button color="primary" type="submit" (click)="submit(form.value)">Valider</button>
+    <button mat-button type="submit" color="primary" (click)="submit(form.value)">Valider</button>
   </mat-card-actions>
 </mat-card>

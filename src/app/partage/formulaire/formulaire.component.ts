@@ -1,4 +1,4 @@
-import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
+import {Component, ElementRef, EventEmitter, Input, OnInit, Output, ViewChild} from '@angular/core';
 import {MatChipInputEvent} from "@angular/material/chips";
 import {COMMA, ENTER} from "@angular/cdk/keycodes";
 import {Person} from "../service/list-personnel.service";
@@ -12,6 +12,7 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
 export class FormulaireComponent implements OnInit {
   form: FormGroup;
   @Input() employeModel: Person;
+  @ViewChild("fileInput") fileInput!: ElementRef;
 
 
   @Output('cancel') cancelEvent$: EventEmitter<any>;
@@ -25,7 +26,7 @@ export class FormulaireComponent implements OnInit {
   constructor() {
     this.submitEvent$ = new EventEmitter();
     this.cancelEvent$ = new EventEmitter();
-    this.form = this.buildForm();
+    this.form = FormulaireComponent.buildForm();
     this.employeModel = {
       titres: []
     };
@@ -82,7 +83,7 @@ export class FormulaireComponent implements OnInit {
    *
    * @private
    */
-  private buildForm(): FormGroup {
+  private static buildForm(): FormGroup {
     return new FormGroup({
       id: new FormControl(''),
       prenom: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
