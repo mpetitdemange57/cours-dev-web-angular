@@ -14,7 +14,6 @@ export class EmployeDetailResolverResolver implements Resolve<Person> {
   resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Person> {
     const employeId: string | null = route.paramMap.get('id');
     if(employeId != null){
-      debugger;
       return this.peopleService.fetchOne(employeId);
     }
     else

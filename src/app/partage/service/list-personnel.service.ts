@@ -1,13 +1,13 @@
-import { Injectable } from '@angular/core';
+import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
-import {BehaviorSubject, Observable, tap} from "rxjs";
+import {BehaviorSubject, Observable} from "rxjs";
 
 export interface Person {
   id?: string;
   nom?: string;
   prenom?: string;
-  photo?: string;
+  photo?: string | ArrayBuffer | null;
   age?: string;
   sexe?: string;
   telephone?: string;
@@ -75,7 +75,6 @@ export class ListPersonnelService {
   }
 
   update(employe: Person): Observable<Person> {
-    debugger;
     return this.http.put<Person>(this.urlServer.unEmploye.replace(':id', employe.id), employe);
   }
 }

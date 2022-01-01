@@ -51,7 +51,6 @@ export class ListPersonnelComponent implements OnInit {
       .pipe(mergeMap(() => this.listPersonnelService.fetch()))
       .subscribe(personnel => {
         this.personnel = personnel;
-        debugger;
         this.hideDialog();
       });
   }
@@ -82,7 +81,6 @@ export class ListPersonnelComponent implements OnInit {
   }
 
   hideDialog() {
-    debugger;
     this.dialogStatus = 'inactive';
     if(this.addDialog != undefined){
       this.addDialog.close();

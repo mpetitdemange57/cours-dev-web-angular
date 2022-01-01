@@ -5,12 +5,18 @@
     <form novalidate [formGroup]="form">
 
       <p>
-            <mat-form-field class="name" > <input formControlName="nom"  matInput placeholder="Nom *" name="nom" /> </mat-form-field>
-            <mat-form-field class="name" > <input formControlName="prenom"  matInput placeholder="Prénom *" name="prenom" /> </mat-form-field>
+        <mat-form-field class="name" >
+          <mat-label>Nom *</mat-label>
+          <input formControlName="nom"  matInput placeholder="Ex: De LaMarre" name="nom" />
+        </mat-form-field>
+        <mat-form-field class="name" >
+          <mat-label>Prénom *</mat-label>
+          <input formControlName="prenom"  matInput placeholder="Ex: Josephine" name="prenom" />
+        </mat-form-field>
       </p>
 
       <p>
-        <label class="mat-checkbox-label">Sexe *</label>
+        <label>Sexe *</label>
         <mat-radio-group aria-label="Sexe *" class="radio-group" name="sexe" formControlName="sexe">
           <mat-radio-button value="M" class="radio-button" >Homme</mat-radio-button>
           <mat-radio-button value="F" class="radio-button" >Femme</mat-radio-button>
@@ -20,19 +26,21 @@
 
       <p>
         <mat-form-field>
-          <input matInput placeholder="Email" style="width:100%" name="email" formControlName="email" />
+          <mat-label><mat-icon>email</mat-icon> Email</mat-label>
+          <input matInput placeholder="Ex: mimie.mathy@gmail.com" style="width:100%" name="email" formControlName="email" />
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field>
-          <input  matInput placeholder="Téléphone * (ex: 0612345678)" style="width:100%" name="telephone" formControlName="telephone" />
+          <mat-label><mat-icon>phone</mat-icon> Téléphone</mat-label>
+          <input  matInput placeholder="Ex: 0612345678" style="width:100%" name="telephone" formControlName="telephone" />
         </mat-form-field>
       </p>
 
       <p>
         <mat-form-field class="chip-list" >
-          <mat-label>Fonctions :</mat-label>
+          <mat-label><mat-icon>work</mat-icon> Fonctions :</mat-label>
           <mat-chip-list #chipList aria-label="Intitulés des fonctions de l'employés">
             <mat-chip *ngFor="let titre of employeModel.titres" (removed)="removeChipset(titre)" >
               {{titre}}
@@ -48,16 +56,16 @@
         </mat-form-field>
       </p>
 
-      <input #fileInput type="file" (change)="onFileSelected($event)"  name="photo" style="display: none;" />
-      <div *ngIf="fileName" >
-        <img width="100" src=" https://randomuser.me/api/portraits/lego/6.jpg" alt="Photo de l'employé" /> <br>
-        <button mat-flat-button color="warn" (click)="fileName = null;">
+      <input #fileInput type="file" (change)="onFileSelected($event)"  name="photo" formControlName="photo"  style="display: none;" accept=".png,.jpg" />
+      <div *ngIf="employeModel.photo" >
+        <img width="100" src="{{employeModel.photo}}" alt="Photo de l'employé" /> <br>
+        <button mat-flat-button color="warn" (click)="employeModel.photo = null;">
           <mat-icon>
             cancel
           </mat-icon>
         </button>
       </div>
-      <div class="file-upload" *ngIf="!fileName">
+      <div class="file-upload" *ngIf="!employeModel.photo">
         <button type="button" (click)="fileInput.click()" mat-fab>
           <mat-icon>
             image

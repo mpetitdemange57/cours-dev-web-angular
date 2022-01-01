@@ -14,14 +14,10 @@ export class FormulaireComponent implements OnInit {
   @Input() employeModel: Person;
   @ViewChild("fileInput") fileInput!: ElementRef;
 
-
   @Output('cancel') cancelEvent$: EventEmitter<any>;
   @Output('submit') submitEvent$: EventEmitter<any>;
 
-
   readonly separatorKeysCodes = [ENTER, COMMA] as const;
-
-  fileName : string | null = '';
 
   constructor() {
     this.submitEvent$ = new EventEmitter();
@@ -30,7 +26,6 @@ export class FormulaireComponent implements OnInit {
     this.employeModel = {
       titres: []
     };
-
   }
 
   ngOnInit() {
@@ -50,15 +45,14 @@ export class FormulaireComponent implements OnInit {
     this.cancelEvent$.emit();
   }
 
-  submit(employe: Person) {
-    debugger; //Formulaire
+  submit(employe: Person) { //Formulaire
+    employe.photo = this.employeModel.photo;
     this.submitEvent$.emit(employe);
   }
 
 
   addChipset(event: MatChipInputEvent): void {
     const value = (event.value || '').trim();
-
     if (value) {
       this.employeModel.titres!.push(value);
     }
@@ -70,10 +64,16 @@ export class FormulaireComponent implements OnInit {
     this.employeModel.titres!.splice(index, 1);
   }
 
-  onFileSelected(event:any) {
-    const file:File = event.target.files[0];
+  onFileSelected(event:Event | null) {
+    const files = (<HTMLInputElement>event?.target).files;
+    const file:File | null = files!.item(0);
+
     if (file) {
-        this.fileName = file.name;
+        let reader = new FileReader();
+        reader.readAsDataURL(file);
+        reader.onload = (_event) => {
+          this.employeModel.photo = reader.result;
+        }
     }
   }
 
