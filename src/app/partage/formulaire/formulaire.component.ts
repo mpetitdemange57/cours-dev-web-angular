@@ -29,6 +29,7 @@ export class FormulaireComponent implements OnInit {
   }
 
   ngOnInit() {
+    debugger;
     this.form.patchValue({
       id: this.employeModel.id,
       nom: this.employeModel.nom,
@@ -65,7 +66,7 @@ export class FormulaireComponent implements OnInit {
   }
 
   onFileSelected(event:Event | null) {
-    const files = (<HTMLInputElement>event?.target).files;
+    const files = (<HTMLInputElement>event?.currentTarget).files;
     const file:File | null = files!.item(0);
 
     if (file) {
@@ -90,10 +91,11 @@ export class FormulaireComponent implements OnInit {
       nom: new FormControl('', Validators.compose([Validators.required, Validators.minLength(2)])),
       email: new FormControl('', Validators.required),
       titres: new FormControl(''),
-      sexe: new FormControl(),
-      photo: new FormControl(''),
+      sexe: new FormControl(''),
       telephone: new FormControl('', Validators.compose([Validators.required, Validators.pattern('\\d{10}')])),
     });
   }
+
+
 
 }

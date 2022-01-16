@@ -13,7 +13,7 @@ export class AjoutPopupComponent {
 
   constructor(public dialogRef: MatDialogRef<AjoutPopupComponent>) {}
 
-  closeDialog(result: PopupAction = {mode: 'none'}) {
+  closeDialog(result: Person & {mode?: string} | null = null) {
     this.dialogRef.close(result);
   }
 
