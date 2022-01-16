@@ -6,10 +6,10 @@ import {Component} from '@angular/core';
   styleUrls: ['./accueil.component.scss']
 })
 export class AccueilComponent {
-  name: string;
+  nom: string | undefined;
 
   constructor() {
-    this.name="Marc Petitdemange";
+    //Vide mais j'en suis conscient
   }
 
 }
