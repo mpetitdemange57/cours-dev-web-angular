@@ -1,0 +1,55 @@
+
+mat-card{
+  width: 600px;
+  border-radius: 25px;
+  margin: 1em ;
+}
+
+mat-card:hover {
+  box-shadow: 0 11px 15px -7px rgba(0, 0, 0, 0.2), 0 24px 38px 3px rgba(0, 0, 0, 0.14),
+  0 9px 46px 8px rgba(0, 0, 0, 0.12);
+  cursor: pointer;
+}
+
+button.mat-mini-fab{
+  margin: 1em;
+}
+
+
+.small {
+  width: 1rem;
+  height: 1rem;
+  font-size: 1rem;
+  margin-right: 0.4rem;
+}
+
+mat-card-subtitle.info {
+  display: flex;
+  margin-top: -7px;
+  height: 20px;
+}
+
+
+.info mat-icon + a {
+  top: 8px;
+  position: relative;
+  height: 18px;
+  line-height: normal;
+}
+
+.info a  {
+  color: #555555;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.info a:hover  {
+  color: #ff4081;
+  font-weight: 500;
+  transition: 0.3s ease-in-out;
+}
+
+mat-card-content{
+  margin-top: 1em;
+}
+

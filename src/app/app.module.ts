@@ -22,11 +22,13 @@ import {MatCheckboxModule} from "@angular/material/checkbox";
 import {NgxEchartsModule} from "ngx-echarts";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatGridListModule} from "@angular/material/grid-list";
+import {CarteComponent} from "./partage/carte/carte.component";
 
 @NgModule({
   declarations: [
     AppComponent,
-    AccueilComponent
+    AccueilComponent,
+    CarteComponent
   ],
   imports: [
     BrowserModule,
