@@ -23,12 +23,16 @@ import {NgxEchartsModule} from "ngx-echarts";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {CarteComponent} from "./partage/carte/carte.component";
+import { HeaderComponent } from './header/header.component';
+import { DrawerComponent } from './drawer/drawer.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AccueilComponent,
-    CarteComponent
+    CarteComponent,
+    HeaderComponent,
+    DrawerComponent
   ],
   imports: [
     BrowserModule,
