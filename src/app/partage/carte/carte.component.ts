@@ -15,7 +15,7 @@ export class CarteComponent {
     photo: "assets/meredith-grey.jpg",
     age: "32",
     sexe: "F",
-    telephone: "0671308533",
+    telephone: "0611510957",
     email: "meredith.grey@gmail.com",
     titres: [
       "interne",
