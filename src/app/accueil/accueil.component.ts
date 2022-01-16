@@ -6,10 +6,6 @@ import {Component} from '@angular/core';
   styleUrls: ['./accueil.component.scss']
 })
 export class AccueilComponent {
-  nom: string | undefined;
-
-  constructor() {
-    //Vide mais j'en suis conscient
-  }
+  
 
 }
