@@ -8,20 +8,7 @@ import {Person} from "../../model/Person";
 })
 export class CarteComponent {
 
-  employe: Person | undefined = {
-    id: "1",
-    nom: "Grey",
-    prenom: "Meredith",
-    photo: "assets/meredith-grey.jpg",
-    age: "32",
-    sexe: "F",
-    telephone: "0611510957",
-    email: "meredith.grey@gmail.com",
-    titres: [
-      "interne",
-    ],
-    chefId: "2"
-  };
+  employe: Person | undefined;
 
   constructor() {
     //Empty
