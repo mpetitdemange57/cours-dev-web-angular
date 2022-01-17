@@ -1,5 +1,34 @@
 <section>
-  <carte [employe]="employe"></carte>
+  <mat-card class="carteCustom">
+    <mat-card-header>
+      <img *ngIf="employe?.photo" mat-card-avatar [src]="employe?.photo" alt="Avatar de l'employé"/>
+      <mat-card-title>{{employe?.nom}} {{employe?.prenom}}</mat-card-title>
+    </mat-card-header>
+    <mat-card-content>
+      <mat-card-subtitle class="info">
+        <mat-icon>email</mat-icon>
+        <a
+          href="mailto:{{employe?.email}}"
+          title="Send an email to"
+          class="truncate"
+        >{{employe?.email}}</a
+        >
+      </mat-card-subtitle>
+      <mat-card-subtitle class="info">
+        <mat-icon>phone</mat-icon>
+        <a href="tel:{{employe?.telephone}}" title="Call">{{employe?.telephone}}</a>
+      </mat-card-subtitle>
+    </mat-card-content>
+
+    <mat-card-actions align="end">
+      <button mat-mini-fab aria-label="Editer" color="accent">
+        <mat-icon>edit</mat-icon>
+      </button>
+      <button mat-mini-fab aria-label="Supprimer" color="warn">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </section>
 
 <button id="refresh" mat-fab color="primary" (click)="random()">
