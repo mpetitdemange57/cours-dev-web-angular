@@ -1,4 +1,6 @@
 import {Component} from '@angular/core';
+import {Personnel} from "src/assets/Personnel";
+import {Person} from "../model/Person";
 
 @Component({
   selector: 'accueil',
@@ -6,10 +8,20 @@ import {Component} from '@angular/core';
   styleUrls: ['./accueil.component.scss']
 })
 export class AccueilComponent {
-  nom: string | undefined;
+
+  employe!: Person;
+
 
   constructor() {
-    //Vide mais j'en suis conscient
+    this.random();
+  }
+
+
+  /**
+   * Returns random people
+   */
+  random() {
+    this.employe = Personnel[Math.floor(Math.random() * Personnel.length)];
   }
 
 }

@@ -8,5 +8,5 @@ export interface Person {
   telephone?: string;
   email?: string;
   titres?: string[];
-  chefId?: string;
+  chefId?: string | null;
 }
