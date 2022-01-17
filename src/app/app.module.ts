@@ -25,6 +25,9 @@ import {MatGridListModule} from "@angular/material/grid-list";
 import {CarteComponent} from "./partage/carte/carte.component";
 import { HeaderComponent } from './header/header.component';
 import { DrawerComponent } from './drawer/drawer.component';
+import { ListPersonnelComponent } from './list-personnel/list-personnel.component';
+import { GraphComponent } from './graph/graph.component';
+import { ContactComponent } from './contact/contact.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +35,10 @@ import { DrawerComponent } from './drawer/drawer.component';
     AccueilComponent,
     CarteComponent,
     HeaderComponent,
-    DrawerComponent
+    DrawerComponent,
+    ListPersonnelComponent,
+    GraphComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
