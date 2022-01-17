@@ -1,4 +1,4 @@
-import {Component} from '@angular/core';
+import {Component, Input} from '@angular/core';
 import {Person} from "../../model/Person";
 
 @Component({
@@ -8,7 +8,7 @@ import {Person} from "../../model/Person";
 })
 export class CarteComponent {
 
-  employe: Person | undefined;
+  @Input() employe: Person | undefined;
 
   constructor() {
     //Empty
