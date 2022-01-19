@@ -1,5 +1,5 @@
 <mat-toolbar>
-  <button mat-icon-button>
+  <button mat-icon-button (click)="drawer.toggleDrawer();">
     <mat-icon>menu</mat-icon>
   </button>
   <a [routerLink]="['/']">
@@ -33,4 +33,3 @@
   </a>
 </mat-toolbar>
 
-<drawer></drawer>

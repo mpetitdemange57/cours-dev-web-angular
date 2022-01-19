@@ -1,4 +1,5 @@
-import {Component} from '@angular/core';
+import {Component, ViewChild} from '@angular/core';
+import {MatDrawer} from "@angular/material/sidenav";
 
 @Component({
   selector: 'drawer',
@@ -7,8 +8,14 @@ import {Component} from '@angular/core';
 })
 export class DrawerComponent {
 
+  @ViewChild(MatDrawer) drawer!: MatDrawer;
+
   constructor() {
     //Vide
+  }
+
+  public toggleDrawer():void {
+    this.drawer.toggle();
   }
 
 }
