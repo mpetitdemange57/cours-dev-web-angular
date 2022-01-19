@@ -1,5 +1,4 @@
-import {Component, Input} from '@angular/core';
-import {DrawerComponent} from "../drawer/drawer.component";
+import {Component} from '@angular/core';
 
 @Component({
   selector: 'header',
@@ -7,8 +6,6 @@ import {DrawerComponent} from "../drawer/drawer.component";
   styleUrls: ['./header.component.scss']
 })
 export class HeaderComponent {
-
-  @Input() drawer!: DrawerComponent;
 
   constructor() {
     //Vide
