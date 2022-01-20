@@ -1,5 +1,5 @@
 <section *ngIf="employe; else noEmploye">
-  <carte [employe]="employe" (personDelete)="random()"></carte>
+  <carte [employe]="employe" (personDelete)="delete($event)"></carte>
 </section>
 
 <ng-template #noEmploye>

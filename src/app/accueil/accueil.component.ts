@@ -20,4 +20,10 @@ export class AccueilComponent implements OnInit {
       this.employe = employe;
     });
   }
+
+  delete(person: Person) {
+    this.listPersonnelService.delete(person.id!).subscribe(personnel => {
+      this.random();
+    });
+  }
 }
