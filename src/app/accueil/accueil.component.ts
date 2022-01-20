@@ -27,11 +27,4 @@ export class AccueilComponent {
       this.employe = personneRandom;
     })
   }
-
-  delete(person: Person){
-    this.httpClient.delete("http://localhost:3000/api/employe/:id".replace(':id', person.id!)).subscribe(() => {
-      this.random();
-    });
-  }
-
 }
