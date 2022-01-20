@@ -1,5 +1,5 @@
 <section>
-  <carte [employe]="employe"></carte>
+  <carte [employe]="employe" (personDelete)="delete($event)"></carte>
 </section>
 
 <button id="refresh" mat-fab color="primary" (click)="random()">
