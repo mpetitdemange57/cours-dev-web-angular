@@ -1,6 +1,6 @@
 import {Component} from '@angular/core';
 import {Person} from "../model/Person";
-import {ListPersonnelService} from "../partage/service/list-personnel.service";
+import {HttpClient} from "@angular/common/http";
 
 @Component({
   selector: 'accueil',
@@ -12,8 +12,10 @@ export class AccueilComponent {
   employe!: Person;
 
 
-  constructor(private readonly listPersonnelService:ListPersonnelService) {
-    this.random();
+  constructor(private readonly httpClient: HttpClient) {
+    this.httpClient.get<Array<Person>>("http://localhost:3000/api/employe").subscribe((listDuPersonnel:Array<Person>) => {
+      this.employe = listDuPersonnel[0];
+    })
   }
 
 
@@ -21,13 +23,13 @@ export class AccueilComponent {
    * Returns random people
    */
   random() {
-    this.listPersonnelService.fetchRandom().subscribe(employe => {
-      this.employe = employe;
-    });
+    this.httpClient.get<Person>("http://localhost:3000/api/employe/random").subscribe((personneRandom:Person) => {
+      this.employe = personneRandom;
+    })
   }
 
   delete(person: Person){
-    this.listPersonnelService.delete(person.id!).subscribe(() => {
+    this.httpClient.delete("http://localhost:3000/api/employe/:id".replace(':id', person.id!)).subscribe(() => {
       this.random();
     });
   }
