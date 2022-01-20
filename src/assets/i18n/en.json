@@ -1,0 +1,10 @@
+{
+  "langue.francais": "French",
+  "langue.allemand": "German",
+  "langue.anglais": "English",
+
+  "drawer.accueil": "Home",
+  "drawer.listPersonnel": "Employees list",
+  "drawer.stats": "Statistics",
+  "drawer.contact": "Contact"
+}

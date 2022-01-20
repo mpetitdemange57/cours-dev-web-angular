@@ -16,7 +16,7 @@ import {ListPersonnelComponent} from './list-personnel/list-personnel.component'
 import {FormulaireComponent} from './partage/formulaire/formulaire.component';
 import {AjoutPopupComponent} from './list-personnel/ajout-popup/ajout-popup.component';
 import {MatListModule} from "@angular/material/list";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatDialogModule} from "@angular/material/dialog";
 import {ContactComponent} from './contact/contact.component';
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
@@ -32,6 +32,14 @@ import {NgxEchartsModule} from "ngx-echarts";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatGridListModule} from "@angular/material/grid-list";
 import { EditionComponent } from './list-personnel/edition/edition.component';
+import { LangueBoutonComponent } from './langue-bouton/langue-bouton.component';
+import {MatMenuModule} from "@angular/material/menu";
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
 
 @NgModule({
   declarations: [
@@ -46,7 +54,8 @@ import { EditionComponent } from './list-personnel/edition/edition.component';
     BarreDeRechercheComponent,
     HeaderComponent,
     DrawerComponent,
-    EditionComponent
+    EditionComponent,
+    LangueBoutonComponent
   ],
   imports: [
     BrowserModule,
@@ -71,8 +80,17 @@ import { EditionComponent } from './list-personnel/edition/edition.component';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
     MatRadioModule,
     MatGridListModule,
+    MatMenuModule,
     // or import('./path-to-my-custom-echarts')
   ],
   providers: [],
