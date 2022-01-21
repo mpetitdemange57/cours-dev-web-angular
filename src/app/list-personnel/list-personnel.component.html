@@ -1,1 +1,3 @@
-<p>list-personnel works!</p>
+<section>
+  <carte [employe]="employe" (personDelete)="delete($event)" *ngFor="let employe of personnel" ></carte>
+</section>
