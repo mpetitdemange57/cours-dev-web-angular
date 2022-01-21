@@ -11,7 +11,7 @@ import {MatIconModule} from "@angular/material/icon";
 import {MatButtonModule} from "@angular/material/button";
 import {MatSidenavModule} from "@angular/material/sidenav";
 import {MatListModule} from "@angular/material/list";
-import {HttpClientModule} from "@angular/common/http";
+import {HttpClient, HttpClientModule} from "@angular/common/http";
 import {MatDialogModule} from "@angular/material/dialog";
 import {MatAutocompleteModule} from "@angular/material/autocomplete";
 import {MatFormFieldModule} from "@angular/material/form-field";
@@ -28,6 +28,15 @@ import { DrawerComponent } from './drawer/drawer.component';
 import { ListPersonnelComponent } from './list-personnel/list-personnel.component';
 import { GraphComponent } from './graph/graph.component';
 import { ContactComponent } from './contact/contact.component';
+import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
+import {TranslateHttpLoader} from "@ngx-translate/http-loader";
+import {LangueBoutonComponent} from "./langue-bouton/langue-bouton.component";
+import {MatMenuModule} from "@angular/material/menu";
+
+export function HttpLoaderFactory(http: HttpClient) {
+  return new TranslateHttpLoader(http);
+}
+
 
 @NgModule({
   declarations: [
@@ -38,7 +47,8 @@ import { ContactComponent } from './contact/contact.component';
     DrawerComponent,
     ListPersonnelComponent,
     GraphComponent,
-    ContactComponent
+    ContactComponent,
+    LangueBoutonComponent
   ],
   imports: [
     BrowserModule,
@@ -63,8 +73,18 @@ import { ContactComponent } from './contact/contact.component';
     NgxEchartsModule.forRoot({
       echarts: () => import('echarts')
     }),
+    TranslateModule.forRoot({
+      defaultLanguage: 'en',
+      loader: {
+        provide: TranslateLoader,
+        useFactory: HttpLoaderFactory,
+        deps: [HttpClient]
+      }
+    }),
+
     MatRadioModule,
     MatGridListModule,
+    MatMenuModule,
     // or import('./path-to-my-custom-echarts')
   ],
   providers: [],

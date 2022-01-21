@@ -1,0 +1,14 @@
+<button mat-icon-button [matMenuTriggerFor]="menu" aria-label="Sélection des langues">
+  <mat-icon>language icon</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <button mat-menu-item (click)="useLanguage('fr')">
+    <span>{{ 'langue.francais' | translate }}</span>
+  </button>
+  <button mat-menu-item (click)="useLanguage('en')">
+    <span>{{ 'langue.anglais' | translate }}</span>
+  </button>
+  <button mat-menu-item (click)="useLanguage('de')">
+    <span>{{ 'langue.allemand' | translate }}</span>
+  </button>
+</mat-menu>

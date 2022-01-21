@@ -2,19 +2,19 @@
   <mat-drawer #drawer mode="side" opened>
     <mat-nav-list>
       <mat-list-item [routerLink]="['/accueil']">
-        <span class="full-width">Accueil</span>
+        <span class="full-width">{{ 'drawer.accueil' | translate }}</span>
         <mat-icon mat-list-icon>home</mat-icon>
       </mat-list-item>
       <mat-list-item [routerLink]="['/listPersonnel']">
-        <span class="full-width">Liste du Personnel</span>
+        <span class="full-width">{{ 'drawer.listPersonnel' | translate }}</span>
         <mat-icon mat-list-icon>list_alt</mat-icon>
       </mat-list-item>
       <mat-list-item [routerLink]="['/graph']">
-        <span class="full-width">Statistiques</span>
+        <span class="full-width">{{ 'drawer.stats' | translate }}</span>
         <mat-icon mat-list-icon>bar_chart</mat-icon>
       </mat-list-item>
       <mat-list-item [routerLink]="['/contact']">
-        <span class="full-width">Contact</span>
+        <span class="full-width">{{ 'drawer.contact' | translate }}</span>
         <mat-icon mat-list-icon>contact_support</mat-icon>
       </mat-list-item>
     </mat-nav-list>
