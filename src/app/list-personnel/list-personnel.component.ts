@@ -27,4 +27,7 @@ export class ListPersonnelComponent implements OnInit {
     });
   }
 
+  switchView() {
+    //A compléter
+  }
 }

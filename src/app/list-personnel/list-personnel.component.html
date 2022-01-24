@@ -1,3 +1,9 @@
 <section>
   <carte [employe]="employe" (personDelete)="delete($event)" *ngFor="let employe of personnel" ></carte>
 </section>
+
+
+<button (click)="switchView()" mat-fab color="warn">
+  <em class="material-icons">list</em>
+  <em class="material-icons">view_stream</em>
+</button>
