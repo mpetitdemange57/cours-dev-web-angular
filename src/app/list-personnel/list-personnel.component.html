@@ -4,7 +4,7 @@
 
 <section class="buttons-fab">
   <button (click)="switchView()" mat-fab color="warn">
-    <em class="material-icons">list</em>
-    <em class="material-icons">view_stream</em>
+    <em class="material-icons" *ngIf="view === 'card'">list</em>
+    <em class="material-icons" *ngIf="view === 'list'">view_stream</em>
   </button>
 </section>

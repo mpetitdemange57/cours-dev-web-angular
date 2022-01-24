@@ -10,6 +10,7 @@ import {Person} from "../model/Person";
 export class ListPersonnelComponent implements OnInit {
 
   personnel: Person[] = [];
+  view:string = "card";
 
   constructor( private readonly listPersonnelService: ListPersonnelService) {
     this.listPersonnelService.fetch().subscribe(personnel => {
@@ -28,6 +29,11 @@ export class ListPersonnelComponent implements OnInit {
   }
 
   switchView() {
-    //A compléter
+    if(this.view==="card"){
+      this.view = "list"
+    }
+    else{
+      this.view = "card";
+    }
   }
 }
