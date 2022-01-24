@@ -23,15 +23,16 @@ import {NgxEchartsModule} from "ngx-echarts";
 import {MatRadioModule} from "@angular/material/radio";
 import {MatGridListModule} from "@angular/material/grid-list";
 import {CarteComponent} from "./partage/carte/carte.component";
-import { HeaderComponent } from './header/header.component';
-import { DrawerComponent } from './drawer/drawer.component';
-import { ListPersonnelComponent } from './list-personnel/list-personnel.component';
-import { GraphComponent } from './graph/graph.component';
-import { ContactComponent } from './contact/contact.component';
+import {HeaderComponent} from './header/header.component';
+import {DrawerComponent} from './drawer/drawer.component';
+import {ListPersonnelComponent} from './list-personnel/list-personnel.component';
+import {GraphComponent} from './graph/graph.component';
+import {ContactComponent} from './contact/contact.component';
 import {TranslateLoader, TranslateModule} from '@ngx-translate/core';
 import {TranslateHttpLoader} from "@ngx-translate/http-loader";
 import {LangueBoutonComponent} from "./langue-bouton/langue-bouton.component";
 import {MatMenuModule} from "@angular/material/menu";
+import {BadgeChefDirective} from "./partage/badgeChef/badge-chef.directive";
 
 export function HttpLoaderFactory(http: HttpClient) {
   return new TranslateHttpLoader(http);
@@ -39,17 +40,19 @@ export function HttpLoaderFactory(http: HttpClient) {
 
 
 @NgModule({
-  declarations: [
-    AppComponent,
-    AccueilComponent,
-    CarteComponent,
-    HeaderComponent,
-    DrawerComponent,
-    ListPersonnelComponent,
-    GraphComponent,
-    ContactComponent,
-    LangueBoutonComponent
-  ],
+    declarations: [
+        AppComponent,
+        AccueilComponent,
+        CarteComponent,
+        HeaderComponent,
+        DrawerComponent,
+        ListPersonnelComponent,
+        GraphComponent,
+        ContactComponent,
+        LangueBoutonComponent,
+        BadgeChefDirective,
+        BadgeChefDirective
+    ],
   imports: [
     BrowserModule,
     AppRoutingModule,

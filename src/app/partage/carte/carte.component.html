@@ -1,7 +1,7 @@
 <mat-card class="carteCustom">
   <mat-card-header>
     <img *ngIf="employe?.photo" mat-card-avatar [src]="employe?.photo" alt="Avatar de l'employé"/>
-    <mat-card-title>{{employe?.nom | uppercase}} {{employe?.prenom}}</mat-card-title>
+    <mat-card-title> <span badgeChef [employe]="employe!"></span> {{employe?.nom | uppercase}} {{employe?.prenom}} </mat-card-title>
     <mat-card-subtitle>
       <mat-card-content>
         <mat-chip-list>
