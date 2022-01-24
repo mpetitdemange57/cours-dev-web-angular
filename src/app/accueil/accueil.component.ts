@@ -9,7 +9,7 @@ import {ListPersonnelService} from "../partage/service/list-personnel.service";
 })
 export class AccueilComponent {
 
-  employe!: Person;
+  employe: Person = {};
 
 
   constructor(private readonly listPersonnelService:ListPersonnelService) {
