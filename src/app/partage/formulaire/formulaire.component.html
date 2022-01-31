@@ -2,41 +2,11 @@
   <mat-card-title> <span>➕ Créer un(e) employé(e)</span> </mat-card-title>
 
   <mat-card-content>
-    <form #f=ngForm>
-
-      <input matInput [(ngModel)]="employeModel.id" name="id" hidden/>
-
-      <p>
-        <mat-form-field class="name" >
-          <mat-label>Nom</mat-label>
-          <input matInput [(ngModel)]="employeModel.nom" name="nom" placeholder="Ex: De LaMarre"/>
-        </mat-form-field>
-        <mat-form-field class="name" >
-          <mat-label>Prénom</mat-label>
-          <input matInput [(ngModel)]="employeModel.prenom" name="prenom" placeholder="Ex: Josephine" />
-        </mat-form-field>
-      </p>
-
-
-      <p>
-        <mat-form-field>
-          <mat-label><mat-icon>email</mat-icon> Email</mat-label>
-          <input matInput [(ngModel)]="employeModel.email" placeholder="Ex: mimie.mathy@gmail.com" style="width:100%" name="email" />
-        </mat-form-field>
-      </p>
-
-      <p>
-        <mat-form-field>
-          <mat-label><mat-icon>phone</mat-icon> Téléphone</mat-label>
-          <input matInput [(ngModel)]="employeModel.telephone" placeholder="Ex: 0612345678" style="width:100%" name="telephone"  />
-        </mat-form-field>
-      </p>
-
-    </form>
+    <!--Ajoutez du code ici-->
   </mat-card-content>
 
   <mat-card-actions align="end">
-    <button mat-button type="button" (click)="cancel()">Annuler</button>
-    <button mat-button type="submit" color="primary" (click)="submit(f.value)">Valider</button>
+    <button mat-button type="button">Annuler</button>
+    <button mat-button type="submit" color="primary">Valider</button>
   </mat-card-actions>
 </mat-card>
