@@ -1,0 +1,92 @@
+<mat-card class="mat-whiteframe-2dp">
+  <mat-card-title> <span>➕ Créer un(e) employé(e)</span> </mat-card-title>
+
+  <mat-card-content>
+    <form novalidate [formGroup]="form">
+
+      <p [class.errors]="form.get('nom')!.invalid && (form.get('nom')!.dirty || form.get('nom')!.touched)">
+        <mat-form-field class="name" >
+          <mat-label>Nom</mat-label>
+          <input formControlName="nom" name="nom" matInput placeholder="Ex: De LaMarre" required/>
+          <mat-error *ngIf="form.get('nom')!.dirty && form.get('nom')!.errors?.['required']"><br />Le nom est obligatoire</mat-error>
+          <mat-error *ngIf="form.get('nom')!.dirty && form.get('nom')!.errors?.['minlength']"><br />Le nom doit avoir au moins 2 caractères </mat-error>
+        </mat-form-field>
+        <mat-form-field class="name" >
+          <mat-label>Prénom</mat-label>
+          <input formControlName="prenom"  matInput placeholder="Ex: Josephine" name="prenom" required/>
+          <mat-error *ngIf="form.get('prenom')!.dirty && form.get('prenom')!.errors?.['required']"><br />Le prenom est obligatoire</mat-error>
+          <mat-error *ngIf="form.get('prenom')!.dirty && form.get('prenom')!.errors?.['minlength']"><br />Le prenom doit avoir au moins 2 caractères </mat-error>
+        </mat-form-field>
+
+
+
+      </p>
+
+      <p [class.errors]="form.get('sexe')!.invalid && (form.get('sexe')!.dirty || form.get('sexe')!.touched)">
+        <label>Sexe *</label>
+        <mat-radio-group aria-label="Sexe" class="radio-group" name="sexe" formControlName="sexe" required>
+          <mat-radio-button value="M" class="radio-button" >Homme</mat-radio-button>
+          <mat-radio-button value="F" class="radio-button" >Femme</mat-radio-button>
+          <mat-radio-button value="A" class="radio-button" >Autre</mat-radio-button>
+          <mat-error *ngIf="form.get('sexe')!.dirty && form.get('sexe')!.errors?.['required']"><br />Vous devez renseigner le sexe de la personne</mat-error>
+        </mat-radio-group>
+      </p>
+
+      <p>
+        <mat-form-field>
+          <mat-label><mat-icon>email</mat-icon> Email</mat-label>
+          <input matInput placeholder="Ex: mimie.mathy@gmail.com" style="width:100%" name="email" formControlName="email" required />
+          <mat-error *ngIf="form.get('email')!.dirty && form.get('email')!.errors?.['required']"><br />L'email est obligatoire</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p [class.errors]="form.get('telephone')!.invalid && (form.get('telephone')!.dirty || form.get('telephone')!.touched)">
+        <mat-form-field>
+          <mat-label><mat-icon>phone</mat-icon> Téléphone</mat-label>
+          <input  matInput placeholder="Ex: 0612345678" style="width:100%" name="telephone" formControlName="telephone" />
+          <mat-error *ngIf="form.get('telephone')!.dirty && form.get('telephone')!.errors?.['pattern']"><br />Le numéro de téléphone doit comporter 10 chiffres</mat-error>
+        </mat-form-field>
+      </p>
+
+      <p>
+        <mat-form-field class="chip-list" >
+          <mat-label><mat-icon>work</mat-icon> Fonctions :</mat-label>
+          <mat-chip-list #chipList aria-label="Intitulés des fonctions de l'employés">
+            <mat-chip *ngFor="let titre of employeModel.titres" (removed)="removeChipset(titre)" >
+              {{titre}}
+              <button matChipRemove>
+                <mat-icon>cancel</mat-icon>
+              </button>
+            </mat-chip>
+            <input placeholder="Ex: Chirurgien..."
+                   [matChipInputFor]="chipList"
+                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+                   (matChipInputTokenEnd)="addChipset($event)">
+          </mat-chip-list>
+        </mat-form-field>
+      </p>
+
+      <input #fileInput type="file" (change)="onFileSelected($event)"  name="photo" style="display: none;" accept=".png,.jpg" />
+      <div *ngIf="employeModel.photo" >
+        <img width="100" src="{{employeModel.photo}}" alt="Photo de l'employé" /> <br>
+        <button mat-flat-button color="warn" (click)="employeModel.photo = null;">
+          <mat-icon>
+            cancel
+          </mat-icon>
+        </button>
+      </div>
+      <div class="file-upload" *ngIf="!employeModel.photo">
+        <button type="button" (click)="fileInput.click()" mat-fab>
+          <mat-icon>
+            image
+          </mat-icon>
+        </button>
+      </div>
+    </form>
+  </mat-card-content>
+
+  <mat-card-actions align="end">
+    <button mat-button type="button" (click)="cancel()">Annuler</button>
+    <button mat-button type="submit" color="primary" (click)="submit(form.value)" [disabled]="!form.valid">Valider</button>
+  </mat-card-actions>
+</mat-card>

@@ -1,6 +1,11 @@
 import { Component, OnInit } from '@angular/core';
 import {ListPersonnelService} from "../partage/service/list-personnel.service";
 import {Person} from "../model/Person";
+import {MatDialog, MatDialogRef} from "@angular/material/dialog";
+import {mergeMap} from "rxjs";
+
+class AjoutPopupComponent {
+}
 
 @Component({
   selector: 'app-list-personnel',
@@ -11,15 +16,17 @@ export class ListPersonnelComponent implements OnInit {
 
   personnel: Person[] = [];
   view:string = "card";
+  dialogStatus: string = "inactive";
+  private addDialog: MatDialogRef<AjoutPopupComponent> | any;
 
-  constructor( private readonly listPersonnelService: ListPersonnelService) {
-    this.listPersonnelService.fetch().subscribe(personnel => {
-      this.personnel = personnel || [];
-    });
+  constructor( private readonly listPersonnelService: ListPersonnelService, public dialog: MatDialog) {
+    //Rien à faire ici
   }
 
   ngOnInit(): void {
-    //Vide
+    this.listPersonnelService.fetch().subscribe(personnel => {
+      this.personnel = personnel || [];
+    });
   }
 
   delete(person: Person) {
@@ -34,6 +41,48 @@ export class ListPersonnelComponent implements OnInit {
     }
     else{
       this.view = "card";
+    }
+  }
+
+  add(person: Person) {
+    this.listPersonnelService
+      .create(person)
+      .pipe(mergeMap(() => this.listPersonnelService.fetch()))
+      .subscribe(personnel => {
+        this.personnel = personnel;
+        this.hideDialog();
+      });
+  }
+
+  update(person: Person) {
+    this.listPersonnelService
+      .update(person)
+      .pipe(mergeMap(() => this.listPersonnelService.fetch()))
+      .subscribe(personnel => {
+        this.personnel = personnel;
+        this.hideDialog();
+      });
+  }
+
+  showDialog() {
+    this.dialogStatus = 'active';
+    this.addDialog = this.dialog.open(AjoutPopupComponent, {
+      width: '600px',
+      data: {}
+    });
+
+    this.addDialog.afterClosed().subscribe((person:any)=> {
+      this.dialogStatus = 'inactive';
+      if (person) {
+        this.add(person);
+      }
+    });
+  }
+
+  hideDialog() {
+    this.dialogStatus = 'inactive';
+    if(this.addDialog != undefined){
+      this.addDialog.close();
     }
   }
 }

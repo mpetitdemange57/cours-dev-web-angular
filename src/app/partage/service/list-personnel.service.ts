@@ -2,19 +2,8 @@ import {Injectable} from '@angular/core';
 import {HttpClient} from "@angular/common/http";
 import {environment} from "../../../environments/environment";
 import {BehaviorSubject, Observable} from "rxjs";
+import {Person} from "../../model/Person";
 
-export interface Person {
-  id?: string;
-  nom?: string;
-  prenom?: string;
-  photo?: string | ArrayBuffer | null;
-  age?: string;
-  sexe?: string;
-  telephone?: string;
-  email?: string;
-  titres?: string[];
-  chefId?: string;
-}
 
 @Injectable({
   providedIn: 'root'

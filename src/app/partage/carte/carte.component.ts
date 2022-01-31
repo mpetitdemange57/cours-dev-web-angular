@@ -12,11 +12,18 @@ export class CarteComponent {
 
   @Output('personDelete') delete$: EventEmitter<any> = new EventEmitter();
 
+  @Output('personUpdate') update$: EventEmitter<any> = new EventEmitter();
+
+
   constructor() {
     //Empty
   }
 
   delete() {
     this.delete$.emit(this.employe);
+  }
+
+  update() {
+    this.update$.emit(this.employe);
   }
 }
