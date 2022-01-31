@@ -54,7 +54,6 @@ export function HttpLoaderFactory(http: HttpClient) {
         ContactComponent,
         LangueBoutonComponent,
         BadgeChefDirective,
-        BadgeChefDirective,
         FormulaireComponent,
         EditionComponent,
         AjoutPopupComponent

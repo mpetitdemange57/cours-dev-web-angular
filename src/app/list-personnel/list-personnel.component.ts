@@ -1,11 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {ListPersonnelService} from "../partage/service/list-personnel.service";
 import {Person} from "../model/Person";
 import {MatDialog, MatDialogRef} from "@angular/material/dialog";
 import {mergeMap} from "rxjs";
-
-class AjoutPopupComponent {
-}
+import {AjoutPopupComponent} from "./ajout-popup/ajout-popup.component";
 
 @Component({
   selector: 'app-list-personnel',
@@ -65,6 +63,7 @@ export class ListPersonnelComponent implements OnInit {
   }
 
   showDialog() {
+    debugger;
     this.dialogStatus = 'active';
     this.addDialog = this.dialog.open(AjoutPopupComponent, {
       width: '600px',
