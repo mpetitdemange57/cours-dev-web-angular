@@ -1,0 +1,4 @@
+{
+  "frontend": ["Angular","VueJs","JQuery"],
+  "backend": ["Java", "Php", "NodeJs"]
+}

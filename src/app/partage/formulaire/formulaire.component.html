@@ -51,22 +51,27 @@
       <p>
         <mat-form-field class="chip-list" >
           <mat-label><mat-icon>work</mat-icon> Fonctions :</mat-label>
-          <mat-chip-list #chipList aria-label="Intitulés des fonctions de l'employés">
-            <mat-chip *ngFor="let titre of employeModel.titres" (removed)="removeChipset(titre)" >
+          <mat-chip-grid #chipGrid  aria-label="Intitulés des fonctions de l'employés">
+              <mat-chip-row *ngFor="let titre of employeModel.titres" (removed)="removeChipset(titre)" >
+                {{titre}}
+                <button matChipRemove>
+                  <mat-icon>cancel</mat-icon>
+                </button>
+              </mat-chip-row>
+          </mat-chip-grid>
+          <input placeholder="Ex: Chirurgien..."
+          [matChipInputFor]="chipGrid"
+          [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
+          (matChipInputTokenEnd)="addChipset($any($event))" />
+          <mat-autocomplete #auto="matAutocomplete">
+            <mat-option *ngFor="let titre of employeModel.titres" [value]="titre">
               {{titre}}
-              <button matChipRemove>
-                <mat-icon>cancel</mat-icon>
-              </button>
-            </mat-chip>
-            <input placeholder="Ex: Chirurgien..."
-                   [matChipInputFor]="chipList"
-                   [matChipInputSeparatorKeyCodes]="separatorKeysCodes"
-                   (matChipInputTokenEnd)="addChipset($event)">
-          </mat-chip-list>
+            </mat-option>
+          </mat-autocomplete>
         </mat-form-field>
       </p>
 
-      <input #fileInput type="file" (change)="onFileSelected($event)"  name="photo" style="display: none;" accept=".png,.jpg" />
+      <input #fileInput type="file" (change)="onFileSelected($any($event))"  name="photo" style="display: none;" accept=".png,.jpg" />
       <div *ngIf="employeModel.photo" >
         <img width="100" src="{{employeModel.photo}}" alt="Photo de l'employé" /> <br>
         <button mat-flat-button color="warn" (click)="employeModel.photo = null;">
@@ -86,7 +91,7 @@
   </mat-card-content>
 
   <mat-card-actions align="end">
-    <button mat-button type="button" (click)="cancel()">Annuler</button>
-    <button mat-button type="submit" color="primary" (click)="submit(form.value)" [disabled]="!form.valid">Valider</button>
+    <button mat-raised-button type="button" (click)="cancel()">Annuler</button>
+    <button mat-raised-button type="submit" color="primary" (click)="submit(form.value)" [disabled]="!form.valid">Valider</button>
   </mat-card-actions>
 </mat-card>

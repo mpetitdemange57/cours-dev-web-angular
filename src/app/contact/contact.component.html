@@ -1,1 +1,28 @@
-<p>contact works!</p>
+<section>
+  <article>
+    <h1>Contributeurs</h1>
+    <h2>Marc Petitdemange</h2>
+    <p>
+      <i>Développeur Fullstack</i>
+    </p>
+    <a [href]="'mailto:marc.petitdemange57@gmail.com'">marc.petitdemange57@gmail.com</a>
+  </article>
+  <article>
+    <h2>Languages frontend</h2>
+    <mat-chip-listbox>
+      <mat-chip *ngFor="let language of languages.frontend">{{language}}</mat-chip>
+    </mat-chip-listbox>
+  </article>
+  <article>
+    <h2>Languages backend</h2>
+    <mat-chip-listbox>
+      <mat-chip *ngFor="let language of languages.backend">{{language}}</mat-chip>
+    </mat-chip-listbox>
+  </article>
+  <article>
+    <h2>Outils</h2>
+    <mat-chip-listbox>
+      <mat-chip *ngFor="let language of languages.backend">{{language}}</mat-chip>
+    </mat-chip-listbox>
+  </article>
+</section>

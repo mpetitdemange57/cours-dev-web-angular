@@ -16,10 +16,10 @@
 
   <section *ngSwitchCase="'list'">
     <mat-list>
-      <mat-list-item *ngFor="let employe of personnel" class="mat-whiteframe-2dp mat-card">
-        <img mat-list-avatar src="{{ employe.photo }}" alt="Avatar de l'employé"/>
-        <h3 mat-line>{{ employe.prenom }} {{ employe.nom }} </h3>
-        <p mat-line>
+      <mat-list-item *ngFor="let employe of personnel">
+        <img matListItemAvatar [src]="employe.photo" alt="Avatar de l'employé"/>
+        <h3 matListItemTitle>{{ employe.prenom }} {{ employe.nom }} </h3>
+        <p matListItemLine>
           <span> {{ employe.email }} </span> — <span>{{ employe.telephone }} </span>
         </p>
       </mat-list-item>
